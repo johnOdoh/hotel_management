@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('room_categories', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
+            $table->string('name');
+            $table->json('images');
+            $table->json('features');
+            $table->longText('description');
+            $table->decimal('amount', 10, 2);
+            $table->unsignedTinyInteger('capacity');
+            $table->float('size');
             $table->timestamps();
         });
     }
