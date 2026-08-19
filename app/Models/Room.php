@@ -24,6 +24,6 @@ class Room extends Model
     
     public function category(): BelongsTo
     {
-        return $this->belongsTo(RoomCategories::class);
+        return $this->belongsTo(RoomCategories::class, 'room_category_id');
     }
 }

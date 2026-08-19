@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('number_of_guests');
             $table->decimal('amount', 10, 2);
             $table->string('booking_type'); //online, in_person
-            $table->foreignUlid('booked_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('booked_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

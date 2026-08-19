@@ -22,4 +22,9 @@ class RoomCategories extends Model
             'size' => 'float',
         ];
     }
+
+    public function rooms(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Room::class, 'room_category_id');
+    }
 }
