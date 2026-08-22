@@ -12,21 +12,21 @@ class Dashboard extends BaseDashboard
     {
         return [
             \App\Filament\Widgets\WelcomeWidget::class,
-            \App\Filament\Widgets\LatestNewsWidget::class
+            // \App\Filament\Widgets\LatestNewsWidget::class
         ];
     }
 
-    protected function getHeaderActions(): array
-    {
-        if (!request()->user()->profile()->exists()) {
-            return [
-                Action::make('complete_profile')
-                    ->label('Complete Profile')
-                    ->icon('heroicon-o-user-circle')
-                    ->color('warning')
-                    ->url(fn(): string => EditProfile::getUrl()),
-            ];
-        }
-        return [];
-    }
+    // protected function getHeaderActions(): array
+    // {
+    //     if (!request()->user()->profile()->exists()) {
+    //         return [
+    //             Action::make('complete_profile')
+    //                 ->label('Complete Profile')
+    //                 ->icon('heroicon-o-user-circle')
+    //                 ->color('warning')
+    //                 ->url(fn(): string => EditProfile::getUrl()),
+    //         ];
+    //     }
+    //     return [];
+    // }
 }
