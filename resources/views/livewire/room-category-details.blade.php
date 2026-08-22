@@ -78,13 +78,13 @@
                          :class="currentSlide === {{ $index }} ? 'opacity-100 scale-100' : 'opacity-0 scale-105'"
                          :style="currentSlide === {{ $index }} ? 'z-index: 10' : 'z-index: 0'">
                         <img src="{{ asset('storage/' . $image) }}" alt="{{ $roomCategory->name }} - Image {{ $index + 1 }}" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"></div>
+                        <div class="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/20"></div>
                     </div>
                 @endforeach
             @else
                 <div class="absolute inset-0">
                     <img src="{{ asset('images/hotel/room.jpg') }}" alt="{{ $roomCategory->name }}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"></div>
+                    <div class="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/20"></div>
                 </div>
             @endif
 

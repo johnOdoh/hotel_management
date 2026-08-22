@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Actions\CheckRoomAvailability;
 use App\Enums\RoomStatus;
 use App\Models\Booking;
 use App\Models\Room;
@@ -62,17 +63,10 @@ class HotelLanding extends Component
         $this->categoryAmount = number_format($category->amount, 2);
 
         // Find rooms in this category that are open and not booked during the selected dates
-        $bookedRoomIds = Booking::where(function ($query) {
-            $query->where('check_in', '<', $this->checkOut)
-                  ->where('check_out', '>', $this->checkIn);
-        })->pluck('room_id');
+        $room_count = app(CheckRoomAvailability::class)->handle($this->roomCategory->id, $this->checkIn, $this->checkOut);
 
-        $this->availableCount = Room::where('room_category_id', $this->selectedCategory)
-            ->where('status', RoomStatus::Open)
-            ->whereNotIn('id', $bookedRoomIds)
-            ->count();
-
-        $this->isAvailable = $this->availableCount > 0;
+        $this->availableCount = $room_count;
+        $this->isAvailable = $room_count > 0;
         $this->searched = true;
     }
 

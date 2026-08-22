@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Actions\CheckRoomAvailability;
 use App\Enums\RoomStatus;
 use App\Models\Booking;
 use App\Models\Room;
@@ -23,11 +24,6 @@ class RoomCategoryDetails extends Component
     public int $totalNights = 0;
     public string $totalPrice = '0.00';
     public ?string $errorMessage = null;
-
-    public function mount(RoomCategories $roomCategory): void
-    {
-        $this->roomCategory = $roomCategory;
-    }
 
     public function checkAvailability(): void
     {
@@ -55,68 +51,60 @@ class RoomCategoryDetails extends Component
         $this->totalNights = $checkInDate->diffInDays($checkOutDate);
         $this->totalPrice = number_format($this->roomCategory->amount * $this->totalNights, 2);
 
-        // Find rooms in this category that are open and not booked during the selected dates
-        $bookedRoomIds = Booking::where(function ($query) {
-            $query->where('check_in', '<', $this->checkOut)
-                  ->where('check_out', '>', $this->checkIn);
-        })->pluck('room_id');
+        $room_count = app(CheckRoomAvailability::class)->handle($this->roomCategory->id, $this->checkIn, $this->checkOut);
 
-        $this->availableCount = Room::where('room_category_id', $this->roomCategory->id)
-            ->where('status', RoomStatus::Open)
-            ->whereNotIn('id', $bookedRoomIds)
-            ->count();
-
-        $this->isAvailable = $this->availableCount > 0;
+        $this->availableCount = $room_count;
+        $this->isAvailable = $room_count > 0;
         $this->searched = true;
     }
 
-    public function getFeatureIcon(string $feature): string
-    {
-        $iconMap = [
-            'wifi' => 'wifi',
-            'tv' => 'tv',
-            'air conditioning' => 'snowflake',
-            'ac' => 'snowflake',
-            'mini bar' => 'wine',
-            'minibar' => 'wine',
-            'room service' => 'bell-concierge',
-            'pool' => 'pool',
-            'swimming pool' => 'pool',
-            'spa' => 'spa',
-            'gym' => 'dumbbell',
-            'fitness' => 'dumbbell',
-            'parking' => 'parking',
-            'restaurant' => 'utensils',
-            'laundry' => 'shirt',
-            'safe' => 'lock',
-            'balcony' => 'mountain-sun',
-            'ocean view' => 'water',
-            'sea view' => 'water',
-            'city view' => 'building',
-            'breakfast' => 'mug-hot',
-            'coffee' => 'mug-hot',
-            'bath' => 'bath',
-            'bathtub' => 'bath',
-            'shower' => 'shower',
-            'telephone' => 'phone',
-            'iron' => 'shirt',
-            'hair dryer' => 'wind',
-            'desk' => 'computer',
-            'workspace' => 'computer',
-            'kitchen' => 'kitchen-set',
-            'kitchenette' => 'kitchen-set',
-        ];
+    // public function getFeatureIcon(string $feature): string
+    // {
+    //     $iconMap = [
+    //         'wifi' => 'wifi',
+    //         'tv' => 'tv',
+    //         'air conditioning' => 'snowflake',
+    //         'ac' => 'snowflake',
+    //         'mini bar' => 'wine',
+    //         'minibar' => 'wine',
+    //         'room service' => 'bell-concierge',
+    //         'pool' => 'pool',
+    //         'swimming pool' => 'pool',
+    //         'spa' => 'spa',
+    //         'gym' => 'dumbbell',
+    //         'fitness' => 'dumbbell',
+    //         'parking' => 'parking',
+    //         'restaurant' => 'utensils',
+    //         'laundry' => 'shirt',
+    //         'safe' => 'lock',
+    //         'balcony' => 'mountain-sun',
+    //         'ocean view' => 'water',
+    //         'sea view' => 'water',
+    //         'city view' => 'building',
+    //         'breakfast' => 'mug-hot',
+    //         'coffee' => 'mug-hot',
+    //         'bath' => 'bath',
+    //         'bathtub' => 'bath',
+    //         'shower' => 'shower',
+    //         'telephone' => 'phone',
+    //         'iron' => 'shirt',
+    //         'hair dryer' => 'wind',
+    //         'desk' => 'computer',
+    //         'workspace' => 'computer',
+    //         'kitchen' => 'kitchen-set',
+    //         'kitchenette' => 'kitchen-set',
+    //     ];
 
-        $lowerFeature = strtolower($feature);
+    //     $lowerFeature = strtolower($feature);
         
-        foreach ($iconMap as $key => $icon) {
-            if (str_contains($lowerFeature, $key)) {
-                return $icon;
-            }
-        }
+    //     foreach ($iconMap as $key => $icon) {
+    //         if (str_contains($lowerFeature, $key)) {
+    //             return $icon;
+    //         }
+    //     }
 
-        return 'check';
-    }
+    //     return 'check';
+    // }
 
     public function render()
     {

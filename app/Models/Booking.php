@@ -14,10 +14,11 @@ class Booking extends Model
     protected function casts(): array
     {
         return [
-            'check_in' => 'date',
-            'check_out' => 'date',
+            'check_in' => 'datetime',
+            'check_out' => 'datetime',
             'amount' => 'decimal:2',
             'number_of_guests' => 'integer',
+            'is_completed' => 'boolean',
         ];
     }
 
