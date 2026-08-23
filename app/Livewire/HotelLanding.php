@@ -3,11 +3,7 @@
 namespace App\Livewire;
 
 use App\Actions\CheckRoomAvailability;
-use App\Enums\RoomStatus;
-use App\Models\Booking;
-use App\Models\Room;
-use App\Models\RoomCategories;
-use Illuminate\Support\Collection;
+use App\Models\RoomCategory;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -52,7 +48,7 @@ class HotelLanding extends Component
             return;
         }
 
-        $category = RoomCategories::find($this->selectedCategory);
+        $category = RoomCategory::find($this->selectedCategory);
 
         if (!$category) {
             $this->errorMessage = 'Selected room category not found.';
@@ -73,7 +69,7 @@ class HotelLanding extends Component
     public function render()
     {
         return view('livewire.hotel-landing', [
-            'categories' => RoomCategories::all(),
+            'categories' => RoomCategory::all(),
         ]);
     }
 }

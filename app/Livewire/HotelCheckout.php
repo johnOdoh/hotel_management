@@ -6,7 +6,7 @@ use App\Enums\BookingType;
 use App\Enums\RoomStatus;
 use App\Models\Booking;
 use App\Models\Room;
-use App\Models\RoomCategories;
+use App\Models\RoomCategory;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
@@ -16,7 +16,7 @@ use Livewire\Component;
 #[Layout('layouts.guest')]
 class HotelCheckout extends Component
 {
-    public RoomCategories $roomCategory;
+    public RoomCategory $roomCategory;
 
     #[Url]
     public string $checkIn = '';
@@ -63,7 +63,7 @@ class HotelCheckout extends Component
         ];
     }
 
-    public function mount(RoomCategories $roomCategory): void
+    public function mount(RoomCategory $roomCategory): void
     {
         $this->roomCategory = $roomCategory;
 

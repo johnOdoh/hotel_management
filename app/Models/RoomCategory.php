@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 #[Guarded(['id'])]
-class RoomCategories extends Model
+class RoomCategory extends Model
 {
     use HasFactory, HasUlids;
 

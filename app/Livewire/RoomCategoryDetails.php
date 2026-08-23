@@ -3,10 +3,7 @@
 namespace App\Livewire;
 
 use App\Actions\CheckRoomAvailability;
-use App\Enums\RoomStatus;
-use App\Models\Booking;
-use App\Models\Room;
-use App\Models\RoomCategories;
+use App\Models\RoomCategory;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -14,7 +11,7 @@ use Livewire\Component;
 #[Layout('layouts.guest')]
 class RoomCategoryDetails extends Component
 {
-    public RoomCategories $roomCategory;
+    public RoomCategory $roomCategory;
 
     public string $checkIn = '';
     public string $checkOut = '';
