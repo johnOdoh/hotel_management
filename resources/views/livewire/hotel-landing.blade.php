@@ -207,7 +207,7 @@
                         <select wire:model="selectedCategory" id="landing-category" class="w-full rounded-xl px-4 py-3.5 text-sm text-white border focus:outline-none focus:ring-2 transition-all cursor-pointer" style="background: rgba(255,255,255,0.08); border-color: rgba(212,168,83,0.3); --tw-ring-color: #d4a853;">
                             <option value="" style="background: #1e293b;">All Categories</option>
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}" style="background: #1e293b;">{{ $category->name }} — ${{ number_format($category->amount, 0) }}/nt</option>
+                                <option value="{{ $category->id }}" style="background: #1e293b;">{{ $category->name }} — ₦{{ number_format($category->amount, 0) }}/nt</option>
                             @endforeach
                         </select>
                     </div>
@@ -321,10 +321,10 @@
                                 @else
                                     <img src="{{ asset('images/hotel/room.jpg') }}" alt="{{ $category->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                 @endif
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
+                                <div class="absolute inset-0 bg-linear-to-t from-black/75 via-transparent to-transparent"></div>
                                 
                                 <div class="absolute top-4 right-4 px-3.5 py-1.5 rounded-full text-xs font-bold text-white shadow-lg" style="background: linear-gradient(135deg, #d4a853, #b8922f);">
-                                    From ${{ number_format($category->amount, 0) }}<span class="text-[10px] font-normal opacity-85"> / nt</span>
+                                    From ₦{{ number_format($category->amount, 0) }}<span class="text-[10px] font-normal opacity-85"> / nt</span>
                                 </div>
 
                                 <div class="absolute bottom-3 left-4 right-4 text-white">
@@ -337,7 +337,7 @@
                             <div class="p-6 flex-1 flex flex-col justify-between">
                                 <div>
                                     <p class="text-xs sm:text-sm mb-4 line-clamp-2 leading-relaxed" style="color: var(--hotel-subtext);">
-                                        {{ $category->description }}
+                                        {{ strip_tags($category->description) }}
                                     </p>
 
                                     {{-- Quick Info --}}
@@ -348,14 +348,17 @@
                                         </span>
                                         <span class="flex items-center gap-1.5">
                                             <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
-                                            {{ $category->size }} m²
+                                            {{ $category->size }} ft²
                                         </span>
                                     </div>
 
                                     {{-- Features Preview --}}
                                     @if($category->features && count($category->features) > 0)
                                         <div class="flex flex-wrap gap-1.5 mb-4">
-                                            @foreach(array_slice($category->features, 0, 3) as $feature)
+                                            @php
+                                                $features = App\Models\Feature::whereIn('id', array_slice($category->features, 0, 3))->pluck('name');
+                                            @endphp
+                                            @foreach($features as $feature)
                                                 <span class="px-2.5 py-1 rounded-lg text-[11px] font-medium" style="background: rgba(212,168,83,0.1); color: #d4a853;">{{ $feature }}</span>
                                             @endforeach
                                             @if(count($category->features) > 3)
@@ -467,7 +470,7 @@
                          @click="openLightbox('{{ $item['image'] }}', '{{ addslashes($item['title']) }}', '{{ addslashes($item['desc']) }}')"
                          class="group relative h-72 sm:h-80 rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 border border-black/5 dark:border-white/10">
                         <img src="{{ $item['image'] }}" alt="{{ $item['title'] }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+                        <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
                         
                         {{-- Hover overlay zoom icon --}}
                         <div class="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-white bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
@@ -588,7 +591,7 @@
                 {{-- Image --}}
                 <div class="relative">
                     <div class="rounded-3xl overflow-hidden shadow-2xl border" style="border-color: var(--hotel-border);">
-                        <img src="{{ asset('images/hotel/about.jpg') }}" alt="Grand Horizon Hotel elegant lounge interior" class="w-full h-[420px] lg:h-[520px] object-cover">
+                        <img src="{{ asset('images/hotel/about.jpg') }}" alt="Grand Horizon Hotel elegant lounge interior" class="w-full h-105 lg:h-130 object-cover">
                     </div>
                     {{-- Floating Stats Card --}}
                     <div class="absolute -bottom-6 -right-4 sm:right-8 glass-dark rounded-2xl p-6 shadow-2xl border" style="border-color: rgba(212,168,83,0.25); min-width: 210px;">

@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\RoomCategories\Schemas;
 
 use App\Models\Feature;
-use Filament\Forms\Components\RichEditor\RichContentRenderer;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;

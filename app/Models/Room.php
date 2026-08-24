@@ -8,23 +8,23 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\RoomCategories;
+use App\Models\RoomCategory;
 
 #[Unguarded]
 class Room extends Model
 {
     use HasFactory, HasUlids;
-    
+
     protected function casts(): array
     {
         return [
             'status' => RoomStatus::class,
         ];
     }
-    
+
     public function category(): BelongsTo
     {
-        return $this->belongsTo(RoomCategories::class, 'room_category_id');
+        return $this->belongsTo(RoomCategory::class, 'room_category_id');
     }
 
     public function reservations()

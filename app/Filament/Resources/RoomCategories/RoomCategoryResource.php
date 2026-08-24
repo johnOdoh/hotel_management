@@ -6,6 +6,7 @@ use App\Filament\Resources\RoomCategories\Pages\CreateRoomCategory;
 use App\Filament\Resources\RoomCategories\Pages\EditRoomCategory;
 use App\Filament\Resources\RoomCategories\Pages\ListRoomCategories;
 use App\Filament\Resources\RoomCategories\Pages\ViewRoomCategory;
+use App\Filament\Resources\RoomCategories\RelationManagers\RoomsRelationManager;
 use App\Filament\Resources\RoomCategories\Schemas\RoomCategoryForm;
 use App\Filament\Resources\RoomCategories\Schemas\RoomCategoryInfolist;
 use App\Filament\Resources\RoomCategories\Tables\RoomCategoriesTable;
@@ -42,7 +43,7 @@ class RoomCategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RoomsRelationManager::class
         ];
     }
 

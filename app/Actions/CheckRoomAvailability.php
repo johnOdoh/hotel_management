@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class CheckRoomAvailability
 {
-    public function handle(string $category_id, string $checkIn, string $checkOut): bool
+    public function handle(string $category_id, string $checkIn, string $checkOut): int
     {
         $checkInDate = Carbon::parse($checkIn);
         $checkOutDate = Carbon::parse($checkOut);
@@ -18,7 +18,7 @@ class CheckRoomAvailability
                 $query->where('is_completed', false)
                     ->where(function ($query) use ($checkInDate, $checkOutDate) {
                         $query->where('check_in', '<', $checkOutDate)
-                                ->where('check_out', '>', $checkInDate);
+                            ->where('check_out', '>', $checkInDate);
                     });
             })
             ->count();
