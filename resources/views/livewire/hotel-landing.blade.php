@@ -28,7 +28,7 @@
     {{-- ========================================== --}}
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" x-data="{ scrolled: false, mobileOpen: false }"
          x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 40 })"
-         :class="scrolled ? 'shadow-2xl' : ''" 
+         :class="scrolled ? 'shadow-2xl' : ''"
          :style="scrolled ? 'background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px);' : 'background: linear-gradient(to bottom, rgba(15,23,42,0.8) 0%, rgba(15,23,42,0) 100%);'">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -40,7 +40,7 @@
                         </svg>
                     </div>
                     <div>
-                        <span class="text-white font-playfair text-lg font-semibold tracking-wide block">Grand Horizon</span>
+                        <span class="text-white font-playfair text-lg font-semibold tracking-wide block">{{ config('app.name') }}</span>
                         <span class="hidden sm:block text-[10px] tracking-[0.25em] uppercase font-medium" style="color: #d4a853;">Hotel & Suites</span>
                     </div>
                 </a>
@@ -51,6 +51,7 @@
                     <a href="#gallery" class="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(212,168,83,0.4)]">Gallery</a>
                     <a href="#amenities" class="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(212,168,83,0.4)]">Amenities</a>
                     <a href="#about" class="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(212,168,83,0.4)]">About</a>
+                    <a href="#testimonials" class="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(212,168,83,0.4)]">Reviews</a>
                     <a href="#contact" class="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(212,168,83,0.4)]">Contact</a>
 
                     {{-- Dark Mode Toggle Button --}}
@@ -85,6 +86,7 @@
                     <a href="#gallery" @click="mobileOpen = false" class="text-white/80 hover:text-white text-sm font-medium py-1.5">Gallery</a>
                     <a href="#amenities" @click="mobileOpen = false" class="text-white/80 hover:text-white text-sm font-medium py-1.5">Amenities</a>
                     <a href="#about" @click="mobileOpen = false" class="text-white/80 hover:text-white text-sm font-medium py-1.5">About</a>
+                    <a href="#testimonials" @click="mobileOpen = false" class="text-white/80 hover:text-white text-sm font-medium py-1.5">Reviews</a>
                     <a href="#contact" @click="mobileOpen = false" class="text-white/80 hover:text-white text-sm font-medium py-1.5">Contact</a>
                     <a href="#availability" @click="mobileOpen = false" class="px-6 py-2.5 rounded-full text-sm font-semibold text-white text-center" style="background: linear-gradient(135deg, #d4a853, #b8922f);">Book Now</a>
                 </div>
@@ -95,7 +97,7 @@
     {{-- ========================================== --}}
     {{-- HERO SECTION WITH DAY & NIGHT CAROUSEL --}}
     {{-- ========================================== --}}
-    <section class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden" 
+    <section class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden"
              x-data="{
                  activeHero: 0,
                  heroSlides: [
@@ -151,8 +153,8 @@
             </div>
 
             <h1 class="font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 animate-fade-in-up animation-delay-200" style="line-height: 1.08;">
-                Grand<br>
-                <span class="text-gradient-gold">Horizon</span>
+                {{ explode(' ', config('app.name'))[0] }}<br>
+                <span class="text-gradient-gold">{{ explode(' ', config('app.name'))[1] }}</span>
             </h1>
 
             <p class="text-base sm:text-xl text-white/85 font-light max-w-2xl mx-auto mb-4 animate-fade-in-up animation-delay-400">
@@ -322,7 +324,7 @@
                                     <img src="{{ asset('images/hotel/room.jpg') }}" alt="{{ $category->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                 @endif
                                 <div class="absolute inset-0 bg-linear-to-t from-black/75 via-transparent to-transparent"></div>
-                                
+
                                 <div class="absolute top-4 right-4 px-3.5 py-1.5 rounded-full text-xs font-bold text-white shadow-lg" style="background: linear-gradient(135deg, #d4a853, #b8922f);">
                                     From ₦{{ number_format($category->amount, 0) }}<span class="text-[10px] font-normal opacity-85"> / nt</span>
                                 </div>
@@ -392,14 +394,14 @@
     {{-- ========================================== --}}
     <section id="gallery" class="py-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300" style="background-color: var(--hotel-card-subtle);">
         <div class="max-w-7xl mx-auto">
-            
+
             {{-- Section Header --}}
             <div class="text-center mb-12">
                 <p class="text-xs uppercase tracking-[0.3em] font-semibold mb-3" style="color: #d4a853;">Visual Experience</p>
                 <h2 class="font-playfair text-4xl sm:text-5xl font-bold mb-4" style="color: var(--hotel-heading);">Hotel Gallery</h2>
                 <div class="w-24 h-px mx-auto mb-6" style="background: linear-gradient(90deg, transparent, #d4a853, transparent);"></div>
                 <p class="text-sm sm:text-base max-w-2xl mx-auto leading-relaxed" style="color: var(--hotel-subtext);">
-                    Immerse yourself in the timeless beauty, architecture, and luxury atmospheres of Grand Horizon Hotel & Suites.
+                    Immerse yourself in the timeless beauty, architecture, and luxury atmospheres of {{ config('app.name') }} Hotel & Suites.
                 </p>
             </div>
 
@@ -425,8 +427,14 @@
                     [
                         'image' => asset('images/hotel/hero_night.jpg'),
                         'category' => 'exterior',
-                        'title' => 'Twilight Resort Exterior',
+                        'title' => 'Twilight Resort Night Exterior',
                         'desc' => 'Illuminated contemporary architecture with reflecting pools and ocean breeze.'
+                    ],
+                    [
+                        'image' => asset('images/hotel/gallery_exterior.jpg'),
+                        'category' => 'exterior',
+                        'title' => 'Twilight Resort Day Exterior',
+                        'desc' => 'Daylight exterior with beautiful flowers and lush greenery.'
                     ],
                     [
                         'image' => asset('images/hotel/gallery_deluxe.jpg'),
@@ -442,6 +450,12 @@
                     ],
                     [
                         'image' => asset('images/hotel/gallery_lobby.jpg'),
+                        'category' => 'lobby',
+                        'title' => 'Grand Crystal Chandelier Lounge',
+                        'desc' => 'Velvet seating and marble accents for refined socializing.'
+                    ],
+                    [
+                        'image' => asset('images/hotel/gallery_interior.jpg'),
                         'category' => 'lobby',
                         'title' => 'Grand Crystal Chandelier Lounge',
                         'desc' => 'Velvet seating and marble accents for refined socializing.'
@@ -471,7 +485,7 @@
                          class="group relative h-72 sm:h-80 rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 border border-black/5 dark:border-white/10">
                         <img src="{{ $item['image'] }}" alt="{{ $item['title'] }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
-                        
+
                         {{-- Hover overlay zoom icon --}}
                         <div class="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-white bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
@@ -489,7 +503,7 @@
         </div>
 
         {{-- LIGHTBOX MODAL --}}
-        <div x-show="lightboxOpen" x-cloak 
+        <div x-show="lightboxOpen" x-cloak
              x-transition:enter="transition ease-out duration-300"
              x-transition:enter-start="opacity-0"
              x-transition:enter-end="opacity-100"
@@ -591,7 +605,7 @@
                 {{-- Image --}}
                 <div class="relative">
                     <div class="rounded-3xl overflow-hidden shadow-2xl border" style="border-color: var(--hotel-border);">
-                        <img src="{{ asset('images/hotel/about.jpg') }}" alt="Grand Horizon Hotel elegant lounge interior" class="w-full h-105 lg:h-130 object-cover">
+                        <img src="{{ asset('images/hotel/about.jpg') }}" alt="{{ config('app.name') }} Hotel elegant lounge interior" class="w-full h-105 lg:h-130 object-cover">
                     </div>
                     {{-- Floating Stats Card --}}
                     <div class="absolute -bottom-6 -right-4 sm:right-8 glass-dark rounded-2xl p-6 shadow-2xl border" style="border-color: rgba(212,168,83,0.25); min-width: 210px;">
@@ -609,7 +623,7 @@
                     <div class="w-16 h-px mb-8" style="background: linear-gradient(90deg, #d4a853, transparent);"></div>
 
                     <p class="mb-6 leading-relaxed text-sm sm:text-base" style="color: var(--hotel-subtext);">
-                        Overlooking pristine ocean horizons, Grand Horizon Hotel & Suites has been setting the benchmark for refined hospitality since 2010. Every architectural detail, culinary creation, and guest experience has been thoughtfully orchestrated.
+                        Overlooking pristine ocean horizons, {{ config('app.name') }} Hotel & Suites has been setting the benchmark for refined hospitality since 2010. Every architectural detail, culinary creation, and guest experience has been thoughtfully orchestrated.
                     </p>
                     <p class="mb-8 leading-relaxed text-sm sm:text-base" style="color: var(--hotel-subtext);">
                         Whether visiting for business conferences, romantic getaways, or restorative spa holidays, our dedicated concierge and tailored services ensure your stay is completely seamless and memorable.
@@ -636,9 +650,522 @@
     </section>
 
     {{-- ========================================== --}}
+    {{-- TESTIMONIALS SECTION --}}
+    {{-- ========================================== --}}
+    <section id="testimonials" class="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-300" style="background-color: var(--hotel-card-subtle);">
+        {{-- Background Subtle Pattern --}}
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0); background-size: 32px 32px;"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10"
+             x-data="{
+                 activeTestimonial: 0,
+                 testimonials: [
+                     {
+                         name: 'Lady Victoria Sterling',
+                         role: 'Luxury Travel Connoisseur',
+                         location: 'London, United Kingdom',
+                         room: 'Presidential Penthouse Suite',
+                         avatar: 'VS',
+                         color: 'from-amber-500 to-yellow-600',
+                         rating: 5,
+                         quote: 'An extraordinary sanctuary of elegance. The breathtaking sunset views from the Penthouse jacuzzi, paired with the discreet 24-hour butler service, made our celebration utterly unforgettable. {{ config('app.name') }} is in a class of its own.',
+                         tag: 'Penthouse Stay',
+                         date: 'August 2026'
+                     },
+                     {
+                         name: 'Marcus & Elena Vance',
+                         role: 'Honeymooners & Food Critics',
+                         location: 'Geneva, Switzerland',
+                         room: 'Ocean View Deluxe Balcony',
+                         avatar: 'MV',
+                         color: 'from-emerald-500 to-teal-600',
+                         rating: 5,
+                         quote: 'From private beachfront dining to the revitalizing thermal spa, every second was curated to perfection. The Michelin-inspired dining surpassed all our expectations. We have already booked our return visit for next summer.',
+                         tag: 'Honeymoon Escape',
+                         date: 'July 2026'
+                     },
+                     {
+                         name: 'Jonathan Hayes',
+                         role: 'Managing Partner, Global Tech Ventures',
+                         location: 'San Francisco, USA',
+                         room: 'Executive King Workspace',
+                         avatar: 'JH',
+                         color: 'from-blue-600 to-indigo-700',
+                         rating: 5,
+                         quote: 'The ultimate convergence of high productivity and serene relaxation. Ultra-fast fiber internet, ergonomic private suite, and impeccable meeting facilities made my week-long corporate summit completely seamless.',
+                         tag: 'Business Retreat',
+                         date: 'July 2026'
+                     },
+                     {
+                         name: 'Dr. Camille Laurent',
+                         role: 'Architect & Interior Designer',
+                         location: 'Paris, France',
+                         room: 'Signature Luxury Suite',
+                         avatar: 'CL',
+                         color: 'from-rose-500 to-pink-600',
+                         rating: 5,
+                         quote: 'As an architect, I was captivated by the exquisite craftsmanship, natural acoustic insulation, and tailored ambient lighting. It is rare to find a resort that honors design aesthetics as passionately as {{ config('app.name') }}.',
+                         tag: 'Design Aficionado',
+                         date: 'June 2026'
+                     }
+                 ],
+                 autoplayTimer: null,
+                 startAutoplay() {
+                     this.autoplayTimer = setInterval(() => {
+                         this.activeTestimonial = (this.activeTestimonial + 1) % this.testimonials.length;
+                     }, 7000);
+                 },
+                 stopAutoplay() {
+                     clearInterval(this.autoplayTimer);
+                 },
+                 next() {
+                     this.activeTestimonial = (this.activeTestimonial + 1) % this.testimonials.length;
+                     this.stopAutoplay();
+                     this.startAutoplay();
+                 },
+                 prev() {
+                     this.activeTestimonial = (this.activeTestimonial - 1 + this.testimonials.length) % this.testimonials.length;
+                     this.stopAutoplay();
+                     this.startAutoplay();
+                 },
+                 setIndex(idx) {
+                     this.activeTestimonial = idx;
+                     this.stopAutoplay();
+                     this.startAutoplay();
+                 }
+             }"
+             x-init="startAutoplay()"
+             @mouseenter="stopAutoplay()"
+             @mouseleave="startAutoplay()">
+
+            {{-- Section Header --}}
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.25em] mb-4 border" style="background: rgba(212,168,83,0.12); color: #d4a853; border-color: rgba(212,168,83,0.3);">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    Guest Reflections
+                </div>
+                <h2 class="font-playfair text-4xl sm:text-5xl font-bold mb-4" style="color: var(--hotel-heading);">What Our Guests Say</h2>
+                <div class="w-24 h-px mx-auto mb-6" style="background: linear-gradient(90deg, transparent, #d4a853, transparent);"></div>
+                <p class="text-sm sm:text-base max-w-2xl mx-auto leading-relaxed" style="color: var(--hotel-subtext);">
+                    Discover firsthand experiences and glowing stories from distinguished travelers worldwide who chose {{ config('app.name') }}.
+                </p>
+            </div>
+
+            {{-- Trust Metrics Bar --}}
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16">
+                <div class="p-5 rounded-2xl border text-center transition-all duration-300 hover:shadow-lg" style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
+                    <div class="flex items-center justify-center gap-1 mb-1" style="color: #d4a853;">
+                        @for($i = 0; $i < 5; $i++)
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        @endfor
+                    </div>
+                    <p class="font-playfair text-2xl font-bold" style="color: var(--hotel-heading);">4.98 / 5.0</p>
+                    <p class="text-xs mt-0.5" style="color: var(--hotel-subtext);">1,450+ Verified Reviews</p>
+                </div>
+
+                <div class="p-5 rounded-2xl border text-center transition-all duration-300 hover:shadow-lg" style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
+                    <p class="font-playfair text-2xl font-bold" style="color: #d4a853;">99.4%</p>
+                    <p class="text-xs font-semibold uppercase tracking-wider mt-1" style="color: var(--hotel-heading);">Recommend Rate</p>
+                    <p class="text-[11px] mt-0.5" style="color: var(--hotel-subtext);">Based on exit surveys</p>
+                </div>
+
+                <div class="p-5 rounded-2xl border text-center transition-all duration-300 hover:shadow-lg" style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
+                    <div class="w-8 h-8 rounded-full mx-auto mb-1 flex items-center justify-center" style="background: rgba(212,168,83,0.15); color: #d4a853;">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    </div>
+                    <p class="font-playfair text-base font-bold" style="color: var(--hotel-heading);">Forbes 5-Star</p>
+                    <p class="text-[11px] mt-0.5" style="color: var(--hotel-subtext);">Official Verified Award</p>
+                </div>
+
+                <div class="p-5 rounded-2xl border text-center transition-all duration-300 hover:shadow-lg" style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
+                    <div class="w-8 h-8 rounded-full mx-auto mb-1 flex items-center justify-center" style="background: rgba(212,168,83,0.15); color: #d4a853;">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="font-playfair text-base font-bold" style="color: var(--hotel-heading);">TripAdvisor</p>
+                    <p class="text-[11px] mt-0.5" style="color: var(--hotel-subtext);">Travelers' Choice 2026</p>
+                </div>
+            </div>
+
+            {{-- Main Testimonial Carousel Card --}}
+            <div class="relative max-w-4xl mx-auto mb-12">
+                <div class="rounded-3xl p-8 sm:p-12 shadow-2xl border relative overflow-hidden transition-all duration-500"
+                     style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
+
+                    {{-- Decorative Large Quote Mark --}}
+                    <div class="absolute -top-4 -right-2 text-8xl font-serif font-black select-none pointer-events-none opacity-10" style="color: #d4a853;">
+                        “
+                    </div>
+
+                    {{-- Dynamic Carousel Slide --}}
+                    <template x-for="(t, index) in testimonials" :key="index">
+                        <div x-show="activeTestimonial === index"
+                             x-transition:enter="transition ease-out duration-500"
+                             x-transition:enter-start="opacity-0 translate-y-4 scale-98"
+                             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                             x-transition:leave-end="opacity-0 -translate-y-4 scale-98">
+
+                            {{-- Star Rating & Tag --}}
+                            <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                                <div class="flex items-center gap-1.5">
+                                    <template x-for="s in t.rating" :key="s">
+                                        <svg class="w-5 h-5 fill-amber-400 text-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    </template>
+                                    <span class="text-xs font-bold text-amber-500 ml-1.5">5.0 Star Experience</span>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background: rgba(212,168,83,0.12); color: #d4a853;" x-text="t.tag"></span>
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                        Verified Stay
+                                    </span>
+                                </div>
+                            </div>
+
+                            {{-- Quote Body --}}
+                            <blockquote class="font-playfair text-lg sm:text-2xl italic leading-relaxed mb-8" style="color: var(--hotel-heading);">
+                                "<span x-text="t.quote"></span>"
+                            </blockquote>
+
+                            {{-- Author Profile & Room Info --}}
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t" style="border-color: var(--hotel-border);">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md shrink-0 bg-gradient-to-tr" :class="t.color">
+                                        <span x-text="t.avatar"></span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-playfair text-lg font-bold" style="color: var(--hotel-heading);" x-text="t.name"></h3>
+                                        <p class="text-xs font-medium" style="color: #d4a853;" x-text="t.role + ' • ' + t.location"></p>
+                                    </div>
+                                </div>
+
+                                <div class="sm:text-right text-xs" style="color: var(--hotel-subtext);">
+                                    <p class="font-semibold text-xs" style="color: var(--hotel-heading);" x-text="t.room"></p>
+                                    <p class="text-[11px] mt-0.5" x-text="'Stayed ' + t.date"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    {{-- Navigation Controls Inside Card --}}
+                    <div class="flex items-center justify-between mt-8 pt-4">
+                        {{-- Dots indicator --}}
+                        <div class="flex items-center gap-2">
+                            <template x-for="(t, idx) in testimonials" :key="idx">
+                                <button @click="setIndex(idx)"
+                                        class="h-2.5 rounded-full transition-all duration-300"
+                                        :class="activeTestimonial === idx ? 'w-8 bg-amber-500' : 'w-2.5 bg-gray-300 dark:bg-gray-700 hover:bg-amber-400'"
+                                        :aria-label="'Go to testimonial ' + (idx + 1)"></button>
+                            </template>
+                        </div>
+
+                        {{-- Next / Prev Arrows --}}
+                        <div class="flex items-center gap-2">
+                            <button @click="prev()" class="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 hover:scale-105 hover:border-amber-500 hover:text-amber-500" style="border-color: var(--hotel-border); color: var(--hotel-heading);" aria-label="Previous Review">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                            </button>
+                            <button @click="next()" class="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 hover:scale-105 hover:border-amber-500 hover:text-amber-500" style="border-color: var(--hotel-border); color: var(--hotel-heading);" aria-label="Next Review">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- ========================================== --}}
+    {{-- CONTACT & RESERVATIONS SECTION (SIDE BY SIDE WITH MAP) --}}
+    {{-- ========================================== --}}
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-300" style="background-color: var(--hotel-bg);">
+        <div class="max-w-7xl mx-auto relative z-10">
+
+            {{-- Section Header --}}
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.25em] mb-4 border" style="background: rgba(212,168,83,0.12); color: #d4a853; border-color: rgba(212,168,83,0.3);">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    24/7 Guest Concierge
+                </div>
+                <h2 class="font-playfair text-4xl sm:text-5xl font-bold mb-4" style="color: var(--hotel-heading);">Contact & Reservations</h2>
+                <div class="w-24 h-px mx-auto mb-6" style="background: linear-gradient(90deg, transparent, #d4a853, transparent);"></div>
+                <p class="text-sm sm:text-base max-w-2xl mx-auto leading-relaxed" style="color: var(--hotel-subtext);">
+                    Have a question, special accommodation request, or planning a custom event? Our dedicated reservations and concierge team are at your service.
+                </p>
+            </div>
+
+            {{-- Two Column Side-by-Side Layout --}}
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
+                {{-- LEFT COLUMN: Contact Details & Embedded Interactive Map --}}
+                <div class="lg:col-span-5 flex flex-col gap-6">
+
+                    {{-- Contact Info Card --}}
+                    <div class="rounded-3xl p-6 sm:p-8 shadow-xl border transition-all duration-300" style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
+                        <h3 class="font-playfair text-2xl font-bold mb-6" style="color: var(--hotel-heading);">Reach Our Front Desk</h3>
+
+                        <div class="space-y-6">
+                            {{-- Address --}}
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-sm" style="background: rgba(212,168,83,0.12); color: #d4a853;">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider" style="color: #d4a853;">Resort Location</h4>
+                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);">123 Luxury Coastal Blvd, Waterfront</p>
+                                    <p class="text-xs mt-0.5" style="color: var(--hotel-subtext);">Marina Bay District, Oceanfront Vista</p>
+                                </div>
+                            </div>
+
+                            {{-- Phone --}}
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-sm" style="background: rgba(212,168,83,0.12); color: #d4a853;">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider" style="color: #d4a853;">Telephone Inquiries</h4>
+                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);">+234 811 123 4567 <span class="text-xs font-normal" style="color: var(--hotel-subtext);">(Front Desk)</span></p>
+                                    <p class="text-sm font-medium mt-0.5" style="color: var(--hotel-heading);">+234 705 987 6543 <span class="text-xs font-normal" style="color: var(--hotel-subtext);">(VIP Butler)</span></p>
+                                </div>
+                            </div>
+
+                            {{-- Email --}}
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-sm" style="background: rgba(212,168,83,0.12); color: #d4a853;">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider" style="color: #d4a853;">Email Direct</h4>
+                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);">reservations@teescontinental.com</p>
+                                    <p class="text-sm font-medium mt-0.5" style="color: var(--hotel-heading);">concierge@teescontinental.com</p>
+                                </div>
+                            </div>
+
+                            {{-- Service Hours --}}
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-sm" style="background: rgba(212,168,83,0.12); color: #d4a853;">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider" style="color: #d4a853;">Operating Schedule</h4>
+                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);">Front Desk & Concierge: 24/7</p>
+                                    <p class="text-xs mt-0.5" style="color: var(--hotel-subtext);">Check-in: 2:00 PM | Check-out: 11:00 AM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Embedded Interactive Map Card --}}
+                    <div class="rounded-3xl overflow-hidden shadow-xl border transition-all duration-300 relative group" style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
+                        {{-- Map Header Bar --}}
+                        <div class="px-6 py-4 flex items-center justify-between border-b" style="border-color: var(--hotel-border); background-color: var(--hotel-card-subtle);">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                                <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--hotel-heading);">Interactive Map & Directions</span>
+                            </div>
+                            <a href="https://maps.google.com/?q=Santa+Monica+Pier" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold flex items-center gap-1 transition-colors hover:underline" style="color: #d4a853;">
+                                <span>Google Maps</span>
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        </div>
+
+                        {{-- Google Map Iframe --}}
+                        <div class="relative h-64 sm:h-72 w-full overflow-hidden">
+                            <iframe
+                                title="{{ config('app.name') }} Hotel Location Map"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.733248043701!2d-118.49647562366106!3d34.01865997316972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2a4d048455555%3A0xb35a0928f62f8319!2sSanta%20Monica%20Pier!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                                width="100%"
+                                height="100%"
+                                style="border:0; filter: contrast(102%) saturate(110%);"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                class="w-full h-full">
+                            </iframe>
+
+                            {{-- Floating Location Pin Badge --}}
+                            <div class="absolute bottom-3 left-3 right-3 sm:right-auto glass-dark rounded-xl px-4 py-2.5 border shadow-lg flex items-center justify-between sm:justify-start gap-3" style="border-color: rgba(212,168,83,0.3);">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                                    <span class="text-xs font-semibold text-white">{{ config('app.name') }} Hotel & Suites</span>
+                                </div>
+                                <a href="https://maps.google.com/?q=Santa+Monica+Pier" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-white" style="background: linear-gradient(135deg, #d4a853, #b8922f);">
+                                    Directions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- RIGHT COLUMN: Contact & Reservation Request Form --}}
+                <div class="lg:col-span-7">
+                    <div class="rounded-3xl p-8 sm:p-10 shadow-2xl border transition-all duration-300 relative" style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
+
+                        {{-- Form Header --}}
+                        <div class="mb-8">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em]" style="color: #d4a853;">Direct Inquiry</span>
+                            <h3 class="font-playfair text-3xl font-bold mt-1" style="color: var(--hotel-heading);">Send Us a Message</h3>
+                            <p class="text-xs sm:text-sm mt-1.5" style="color: var(--hotel-subtext);">
+                                Please complete the form below and an assigned concierge coordinator will respond promptly.
+                            </p>
+                        </div>
+
+                        {{-- Success Notification Card --}}
+                        @if($contactSent)
+                            <div class="mb-8 p-5 rounded-2xl border flex items-start gap-4 animate-fade-in-up" style="background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.35);">
+                                <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm" style="background: rgba(34,197,94,0.25); color: #16a34a;">
+                                    <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-bold text-emerald-600 dark:text-emerald-400">Message Sent Successfully!</h4>
+                                    <p class="text-xs text-emerald-700 dark:text-emerald-300 mt-1 leading-relaxed">{{ $contactSuccessMessage }}</p>
+                                </div>
+                                <button type="button" wire:click="dismissContactAlert" class="text-emerald-500 hover:text-emerald-700 p-1" aria-label="Dismiss message">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                </button>
+                            </div>
+                        @endif
+
+                        {{-- Contact Form --}}
+                        <form wire:submit="submitContactForm" class="space-y-6">
+
+                            {{-- Row 1: Full Name & Email --}}
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="contact-name" class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color: var(--hotel-heading);">
+                                        Full Name <span class="text-red-500">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="contact-name"
+                                        wire:model="contactName"
+                                        placeholder="e.g. Eleanor Vance"
+                                        class="w-full rounded-xl px-4 py-3.5 text-sm border transition-all duration-300 focus:outline-none focus:ring-2"
+                                        style="background-color: var(--hotel-card-subtle); color: var(--hotel-heading); border-color: var(--hotel-border); --tw-ring-color: #d4a853;">
+                                    @error('contactName')
+                                        <p class="text-xs text-red-500 mt-1.5 flex items-center gap-1">
+                                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="contact-email" class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color: var(--hotel-heading);">
+                                        Email Address <span class="text-red-500">*</span>
+                                    </label>
+                                    <input
+                                        type="email"
+                                        id="contact-email"
+                                        wire:model="contactEmail"
+                                        placeholder="eleanor@example.com"
+                                        class="w-full rounded-xl px-4 py-3.5 text-sm border transition-all duration-300 focus:outline-none focus:ring-2"
+                                        style="background-color: var(--hotel-card-subtle); color: var(--hotel-heading); border-color: var(--hotel-border); --tw-ring-color: #d4a853;">
+                                    @error('contactEmail')
+                                        <p class="text-xs text-red-500 mt-1.5 flex items-center gap-1">
+                                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Row 2: Phone & Subject Dropdown --}}
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="contact-phone" class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color: var(--hotel-heading);">
+                                        Phone Number <span class="text-xs font-normal opacity-60">(Optional)</span>
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        id="contact-phone"
+                                        wire:model="contactPhone"
+                                        placeholder="+1 (555) 000-0000"
+                                        class="w-full rounded-xl px-4 py-3.5 text-sm border transition-all duration-300 focus:outline-none focus:ring-2"
+                                        style="background-color: var(--hotel-card-subtle); color: var(--hotel-heading); border-color: var(--hotel-border); --tw-ring-color: #d4a853;">
+                                    @error('contactPhone')
+                                        <p class="text-xs text-red-500 mt-1.5">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="contact-subject" class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color: var(--hotel-heading);">
+                                        Inquiry Type <span class="text-red-500">*</span>
+                                    </label>
+                                    <select
+                                        id="contact-subject"
+                                        wire:model="contactSubject"
+                                        class="w-full rounded-xl px-4 py-3.5 text-sm border transition-all duration-300 focus:outline-none focus:ring-2 cursor-pointer"
+                                        style="background-color: var(--hotel-card-subtle); color: var(--hotel-heading); border-color: var(--hotel-border); --tw-ring-color: #d4a853;">
+                                        <option value="General Inquiry">General Inquiry</option>
+                                        <option value="Suite Reservation & Booking">Suite Reservation & Booking</option>
+                                        <option value="VIP Penthouse & Butler Service">VIP Penthouse & Butler Service</option>
+                                        <option value="Private Wedding & Celebration">Private Wedding & Celebration</option>
+                                        <option value="Corporate Retreat & Conference">Corporate Retreat & Conference</option>
+                                        <option value="Spa & Wellness Package">Spa & Wellness Package</option>
+                                        <option value="Airport Chauffeur & Logistics">Airport Chauffeur & Logistics</option>
+                                    </select>
+                                    @error('contactSubject')
+                                        <p class="text-xs text-red-500 mt-1.5">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Row 3: Message --}}
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <label for="contact-message" class="block text-xs font-semibold uppercase tracking-wider" style="color: var(--hotel-heading);">
+                                        Your Message <span class="text-red-500">*</span>
+                                    </label>
+                                    <span class="text-[11px]" style="color: var(--hotel-subtext);">Min 10 characters</span>
+                                </div>
+                                <textarea
+                                    id="contact-message"
+                                    wire:model="contactMessage"
+                                    rows="5"
+                                    placeholder="Tell us about your dates, preferences, dietary requests, or any questions you have..."
+                                    class="w-full rounded-xl px-4 py-3 text-sm border transition-all duration-300 focus:outline-none focus:ring-2 resize-y"
+                                    style="background-color: var(--hotel-card-subtle); color: var(--hotel-heading); border-color: var(--hotel-border); --tw-ring-color: #d4a853;"></textarea>
+                                @error('contactMessage')
+                                    <p class="text-xs text-red-500 mt-1.5 flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                            {{-- Row 4: Submit Button & Privacy Note --}}
+                            <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <p class="text-xs flex items-center gap-1.5" style="color: var(--hotel-subtext);">
+                                    <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                    Your details are strictly confidential.
+                                </p>
+
+                                <button
+                                    type="submit"
+                                    wire:loading.attr="disabled"
+                                    class="px-8 py-4 rounded-xl text-xs sm:text-sm font-bold text-white tracking-wider uppercase transition-all duration-300 hover:scale-[1.02] shadow-xl hover:shadow-[0_0_25px_rgba(212,168,83,0.4)] flex items-center justify-center gap-2.5 disabled:opacity-50 cursor-pointer"
+                                    style="background: linear-gradient(135deg, #d4a853, #b8922f);">
+                                    <svg wire:loading class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                                    <span wire:loading.remove class="flex items-center gap-2">
+                                        Send Message
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                    </span>
+                                    <span wire:loading>Sending Message...</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- ========================================== --}}
     {{-- FOOTER --}}
     {{-- ========================================== --}}
-    <footer id="contact" class="pt-16 pb-8 px-4 sm:px-6 lg:px-8 transition-colors duration-300" style="background: var(--hotel-navy);">
+    <footer class="pt-16 pb-8 px-4 sm:px-6 lg:px-8 transition-colors duration-300" style="background: var(--hotel-navy);">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 {{-- Brand --}}
@@ -650,11 +1177,11 @@
                             </svg>
                         </div>
                         <div>
-                            <span class="text-white font-playfair text-lg font-semibold">Grand Horizon</span>
+                            <span class="text-white font-playfair text-lg font-semibold">{{ config('app.name') }}</span>
                             <span class="block text-[10px] tracking-[0.2em] uppercase" style="color: #d4a853;">Hotel & Suites</span>
                         </div>
                     </div>
-                    <p class="text-xs text-white/50 leading-relaxed">Experience luxury redefined at Grand Horizon Hotel & Suites. Where every moment becomes an unforgettable memory.</p>
+                    <p class="text-xs text-white/50 leading-relaxed">Experience luxury redefined at {{ config('app.name') }} Hotel & Suites. Where every moment becomes an unforgettable memory.</p>
                 </div>
 
                 {{-- Quick Links --}}
@@ -678,11 +1205,11 @@
                         </li>
                         <li class="flex items-center gap-3">
                             <svg class="w-4 h-4 shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
-                            <span>+1 (555) 123-4567</span>
+                            <span>+234 810 123 4567</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <svg class="w-4 h-4 shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-                            <span>reservations@grandhorizon.com</span>
+                            <span>reservations@teescontinental.com</span>
                         </li>
                     </ul>
                 </div>
@@ -716,7 +1243,7 @@
 
             {{-- Bottom Copyright --}}
             <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
-                <p>&copy; {{ date('Y') }} Grand Horizon Hotel & Suites. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} {{ config('app.name') }} Hotel & Suites. All rights reserved.</p>
                 <div class="flex gap-6">
                     <a href="{{ route('privacy') }}" class="hover:text-amber-400 transition-colors">Privacy Policy</a>
                     <a href="{{ route('terms') }}" class="hover:text-amber-400 transition-colors">Terms of Service</a>

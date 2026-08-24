@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="{{ $metaDescription ?? 'Grand Horizon Hotel & Suites — Experience luxury redefined. Premium accommodations, world-class amenities, and unforgettable moments await.' }}">
+        content="{{ $metaDescription ?? 'Welcome to '. config('app.name') .' Hotel & Suites — Experience luxury redefined. Premium accommodations, world-class amenities, and unforgettable moments await.' }}">
 
-    <title>{{ $title ?? 'Grand Horizon Hotel & Suites' }}</title>
+    <title>{{ $title ?? config('app.name') .' Hotel & Suites' }}</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -26,7 +26,7 @@
                         </svg>
                     </div>
                     <div>
-                        <span class="text-white font-playfair text-base font-semibold tracking-wide">Grand Horizon</span>
+                        <span class="text-white font-playfair text-base font-semibold tracking-wide">{{ config('app.name') }}</span>
                         <span class="hidden sm:inline-block text-[10px] uppercase tracking-[0.2em] ml-2" style="color: #d4a853;">Checkout</span>
                     </div>
                 </a>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="text-right">
                             <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Total Paid / Due</span>
-                            <p class="text-xl font-bold font-playfair" style="color: var(--hotel-heading);">${{ number_format($totalPrice, 2) }}</p>
+                            <p class="text-xl font-bold font-playfair" style="color: var(--hotel-heading);">₦{{ number_format($totalPrice, 2) }}</p>
                         </div>
                     </div>
 
@@ -133,12 +133,12 @@
 
                 {{-- LEFT COLUMN: Guest Form (7 cols) --}}
                 <div class="lg:col-span-7 space-y-8">
-                    
+
                     {{-- Page Title --}}
                     <div>
                         <p class="text-xs uppercase tracking-[0.3em] font-semibold mb-2" style="color: #d4a853;">Reservation Details</p>
                         <h1 class="font-playfair text-3xl sm:text-4xl font-bold" style="color: var(--hotel-heading);">Guest Information</h1>
-                        <p class="text-sm mt-2" style="color: var(--hotel-subtext);">Please provide your contact details to secure your reservation at Grand Horizon.</p>
+                        <p class="text-sm mt-2" style="color: var(--hotel-subtext);">Please provide your contact details to secure your reservation at {{ config('app.name') }}.</p>
                     </div>
 
                     @if (session()->has('error'))
@@ -149,7 +149,7 @@
                     @endif
 
                     <form wire:submit="processBooking" class="space-y-6">
-                        
+
                         {{-- 1. Guest Personal Info Card --}}
                         <div class="rounded-2xl p-6 sm:p-8 shadow-lg border transition-colors duration-300" style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
                             <h2 class="font-playfair text-xl font-semibold mb-6 flex items-center gap-3" style="color: var(--hotel-heading);">
@@ -293,10 +293,10 @@
                         <div class="pt-2">
                             <button type="submit" wire:loading.attr="disabled" class="w-full py-4 rounded-2xl font-semibold text-base text-white tracking-wide uppercase shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(212,168,83,0.4)] flex items-center justify-center gap-3 disabled:opacity-50" style="background: linear-gradient(135deg, #d4a853, #b8922f);">
                                 <svg wire:loading class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                                <span wire:loading.remove>Confirm Reservation &bull; ${{ number_format($totalPrice, 2) }}</span>
+                                <span wire:loading.remove>Confirm Reservation &bull; ₦{{ number_format($totalPrice, 2) }}</span>
                                 <span wire:loading>Processing Reservation...</span>
                             </button>
-                            <p class="text-center text-xs mt-3 text-gray-400">By confirming, you agree to the Grand Horizon Booking & Cancellation Policy.</p>
+                            <p class="text-center text-xs mt-3 text-gray-400">By confirming, you agree to the {{ config('app.name') }} Booking & Cancellation Policy.</p>
                         </div>
                     </form>
                 </div>
@@ -304,7 +304,7 @@
                 {{-- RIGHT COLUMN: Sticky Summary (5 cols) --}}
                 <div class="lg:col-span-5 lg:sticky lg:top-24">
                     <div class="rounded-3xl overflow-hidden shadow-2xl border transition-colors duration-300" style="background-color: var(--hotel-card); border-color: var(--hotel-border);">
-                        
+
                         {{-- Image Header --}}
                         <div class="relative h-48 sm:h-56 overflow-hidden">
                             @if($roomCategory->images && count($roomCategory->images) > 0)
@@ -313,7 +313,7 @@
                                 <img src="{{ asset('images/hotel/room.jpg') }}" alt="{{ $roomCategory->name }}" class="w-full h-full object-cover">
                             @endif
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                            
+
                             <div class="absolute bottom-4 left-4 right-4 text-white">
                                 <span class="text-[10px] tracking-[0.2em] uppercase font-semibold text-amber-400">Selected Category</span>
                                 <h3 class="font-playfair text-xl font-bold">{{ $roomCategory->name }}</h3>
@@ -322,7 +322,7 @@
 
                         {{-- Summary Breakdown --}}
                         <div class="p-6 sm:p-8 space-y-6">
-                            
+
                             {{-- Stay Overview --}}
                             <div class="grid grid-cols-2 gap-4 p-4 rounded-xl text-xs" style="background: var(--hotel-card-subtle); border: 1px solid var(--hotel-border);">
                                 <div>
@@ -347,16 +347,16 @@
                             {{-- Price Computation --}}
                             <div class="space-y-3 text-sm pt-2">
                                 <div class="flex justify-between" style="color: var(--hotel-subtext);">
-                                    <span>${{ number_format($roomCategory->amount, 2) }} &times; {{ $totalNights }} {{ $totalNights === 1 ? 'night' : 'nights' }}</span>
-                                    <span class="font-medium" style="color: var(--hotel-heading);">${{ number_format($basePrice, 2) }}</span>
+                                    <span>₦{{ number_format($roomCategory->amount, 2) }} &times; {{ $totalNights }} {{ $totalNights === 1 ? 'night' : 'nights' }}</span>
+                                    <span class="font-medium" style="color: var(--hotel-heading);">₦{{ number_format($basePrice, 2) }}</span>
                                 </div>
                                 <div class="flex justify-between" style="color: var(--hotel-subtext);">
                                     <span>Service & Hospitality Fee (5%)</span>
-                                    <span class="font-medium" style="color: var(--hotel-heading);">${{ number_format($serviceFee, 2) }}</span>
+                                    <span class="font-medium" style="color: var(--hotel-heading);">₦{{ number_format($serviceFee, 2) }}</span>
                                 </div>
                                 <div class="flex justify-between" style="color: var(--hotel-subtext);">
                                     <span>State & Occupancy Tax (7.5%)</span>
-                                    <span class="font-medium" style="color: var(--hotel-heading);">${{ number_format($taxAmount, 2) }}</span>
+                                    <span class="font-medium" style="color: var(--hotel-heading);">₦{{ number_format($taxAmount, 2) }}</span>
                                 </div>
 
                                 <div class="pt-4 border-t border-gray-200 dark:border-gray-800 flex justify-between items-center">
@@ -364,7 +364,7 @@
                                         <span class="text-base font-bold" style="color: var(--hotel-heading);">Total Due</span>
                                         <span class="text-[11px] block text-gray-500">Includes all taxes and fees</span>
                                     </div>
-                                    <span class="text-2xl font-bold font-playfair" style="color: #d4a853;">${{ number_format($totalPrice, 2) }}</span>
+                                    <span class="text-2xl font-bold font-playfair" style="color: #d4a853;">₦{{ number_format($totalPrice, 2) }}</span>
                                 </div>
                             </div>
 
@@ -387,7 +387,7 @@
     {{-- Footer --}}
     <footer class="py-8 border-t mt-16 transition-colors duration-300" style="background: var(--hotel-navy); border-color: rgba(212,168,83,0.15);">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
-            <p>&copy; {{ date('Y') }} Grand Horizon Hotel & Suites. All rights reserved. Secure Encrypted Checkout.</p>
+            <p>&copy; {{ date('Y') }} {{ config('app.name') }} Hotel & Suites. All rights reserved. Secure Encrypted Checkout.</p>
             <div class="flex gap-6">
                 <a href="{{ route('privacy') }}" class="hover:text-amber-400 transition-colors">Privacy Policy</a>
                 <a href="{{ route('terms') }}" class="hover:text-amber-400 transition-colors">Terms of Service</a>
