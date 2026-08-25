@@ -109,12 +109,13 @@ class HotelLanding extends Component
         $this->categoryAmount = number_format($category->amount, 2);
 
         // Find rooms in this category that are open and not booked during the selected dates
-        $room_count = app(CheckRoomAvailability::class)->handle($category->id, $this->checkIn, $this->checkOut);
+        $rooms = app(CheckRoomAvailability::class)->handle($category->id, $this->checkIn, $this->checkOut);
 
-        $this->availableCount = $room_count;
-        $this->isAvailable = $room_count > 0;
+        $this->availableCount = count($rooms);
+        $this->isAvailable = count($rooms) > 0;
         $this->searched = true;
     }
+
 
     public function render()
     {

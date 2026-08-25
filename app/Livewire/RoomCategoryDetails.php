@@ -48,10 +48,10 @@ class RoomCategoryDetails extends Component
         $this->totalNights = $checkInDate->diffInDays($checkOutDate);
         $this->totalPrice = number_format($this->roomCategory->amount * $this->totalNights, 2);
 
-        $room_count = app(CheckRoomAvailability::class)->handle($this->roomCategory->id, $this->checkIn, $this->checkOut);
+        $rooms = app(CheckRoomAvailability::class)->handle($this->roomCategory->id, $this->checkIn, $this->checkOut);
 
-        $this->availableCount = $room_count;
-        $this->isAvailable = $room_count > 0;
+        $this->availableCount = count($rooms);
+        $this->isAvailable = count($rooms) > 0;
         $this->searched = true;
     }
 
@@ -93,7 +93,7 @@ class RoomCategoryDetails extends Component
     //     ];
 
     //     $lowerFeature = strtolower($feature);
-        
+
     //     foreach ($iconMap as $key => $icon) {
     //         if (str_contains($lowerFeature, $key)) {
     //             return $icon;
@@ -106,6 +106,6 @@ class RoomCategoryDetails extends Component
     public function render()
     {
         return view('livewire.room-category-details')
-            ->title($this->roomCategory->name . ' — Grand Horizon Hotel & Suites');
+            ->title($this->roomCategory->name . ' — ' . config('app.name') . ' Hotel & Suites');
     }
 }

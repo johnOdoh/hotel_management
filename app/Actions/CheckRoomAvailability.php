@@ -7,13 +7,13 @@ use Carbon\Carbon;
 
 class CheckRoomAvailability
 {
-    public function handle(string $category_id, string $checkIn, string $checkOut): int
+    public function handle(string $category_id, string $checkIn, string $checkOut)
     {
         $checkInDate = Carbon::parse($checkIn);
         $checkOutDate = Carbon::parse($checkOut);
 
         // Find rooms in this category that are open and not booked during the selected dates
-        $room_count = Room::where('room_category_id', $category_id)
+        $rooms = Room::where('room_category_id', $category_id)
             ->whereDoesntHave('reservations', function ($query) use ($checkInDate, $checkOutDate) {
                 $query->where('is_completed', false)
                     ->where(function ($query) use ($checkInDate, $checkOutDate) {
@@ -21,8 +21,8 @@ class CheckRoomAvailability
                             ->where('check_out', '>', $checkInDate);
                     });
             })
-            ->count();
+            ->get(['number', 'id']);
 
-        return $room_count;
+        return $rooms;
     }
 }

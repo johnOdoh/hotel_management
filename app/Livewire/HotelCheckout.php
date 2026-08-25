@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Actions\CheckRoomAvailability;
 use App\Enums\BookingType;
 use App\Enums\RoomStatus;
 use App\Models\Booking;
@@ -24,7 +25,6 @@ class HotelCheckout extends Component
     #[Url]
     public string $checkOut = '';
 
-    #[Url]
     public int $guests = 1;
 
     // Guest details
@@ -63,6 +63,7 @@ class HotelCheckout extends Component
         ];
     }
 
+
     public function mount(RoomCategory $roomCategory): void
     {
         $this->roomCategory = $roomCategory;
@@ -75,14 +76,10 @@ class HotelCheckout extends Component
             $this->checkOut = Carbon::now()->addDays(3)->format('Y-m-d');
         }
 
-        if ($this->guests < 1) {
-            $this->guests = 1;
-        }
-
         $this->calculatePricingAndAvailability();
     }
 
-    public function updated($propertyName): void
+    public function updated(string $propertyName): void
     {
         if (in_array($propertyName, ['checkIn', 'checkOut', 'guests'])) {
             $this->calculatePricingAndAvailability();
@@ -109,20 +106,13 @@ class HotelCheckout extends Component
         $this->taxAmount = round($this->basePrice * 0.075, 2);
         $this->totalPrice = round($this->basePrice + $this->serviceFee + $this->taxAmount, 2);
 
-        // Check if an open room is available
-        $bookedRoomIds = Booking::where(function ($query) {
-            $query->where('check_in', '<', $this->checkOut)
-                  ->where('check_out', '>', $this->checkIn);
-        })->pluck('room_id');
+        $rooms = app(CheckRoomAvailability::class)->handle($this->roomCategory->id, $this->checkIn, $this->checkOut);
 
-        $availableRoom = Room::where('room_category_id', $this->roomCategory->id)
-            ->where('status', RoomStatus::Open)
-            ->whereNotIn('id', $bookedRoomIds)
-            ->first();
+        $availableRoom = count($rooms) > 0;
 
         if ($availableRoom) {
             $this->isAvailable = true;
-            $this->selectedRoomId = $availableRoom->id;
+            $this->selectedRoomId = $rooms[0]->id;
         } else {
             $this->isAvailable = false;
             $this->selectedRoomId = null;
@@ -162,6 +152,6 @@ class HotelCheckout extends Component
     public function render()
     {
         return view('livewire.hotel-checkout')
-            ->title('Complete Your Reservation — Grand Horizon Hotel & Suites');
+            ->title('Complete Your Reservation — ' . config('app.name') . ' Hotel & Suites');
     }
 }
