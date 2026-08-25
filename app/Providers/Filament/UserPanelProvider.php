@@ -33,8 +33,11 @@ class UserPanelProvider extends PanelProvider
             ->passwordReset()
             ->emailVerification()
             ->profile(EditProfile::class, false)
+            ->sidebarCollapsibleOnDesktop()
+            ->sidebarWidth('15rem')
+            ->favicon('/favicon.ico')
             ->colors([
-                'primary' => Color::Purple,
+                'primary' => Color::Orange,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

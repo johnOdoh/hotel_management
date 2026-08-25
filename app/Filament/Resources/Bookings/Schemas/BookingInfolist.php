@@ -11,33 +11,32 @@ class BookingInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('id')
-                    ->label('ID'),
-                TextEntry::make('room_id')
-                    ->placeholder('-'),
                 TextEntry::make('name'),
                 TextEntry::make('email')
                     ->label('Email address')
                     ->placeholder('-'),
                 TextEntry::make('phone'),
+                TextEntry::make('room.number')
+                    ->label('Room Number'),
                 TextEntry::make('check_in')
                     ->date(),
                 TextEntry::make('check_out')
                     ->date(),
-                TextEntry::make('number_of_guests')
-                    ->numeric(),
                 TextEntry::make('amount')
+                    ->label('Amount(₦)')
                     ->numeric(),
-                TextEntry::make('booking_type'),
+                TextEntry::make('booking_type')
+                    ->badge(),
                 TextEntry::make('is_completed')
-                    ->numeric(),
-                TextEntry::make('booked_by')
+                    ->label('Status')
+                    ->formatStateUsing(fn($state) => $state ? 'Completed' : 'Ongoing')
+                    ->badge(fn($state) => $state ? 'success' : 'warning'),
+                TextEntry::make('user.name')
+                    ->label('Booked by')
                     ->numeric()
                     ->placeholder('-'),
                 TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
+                    ->label('Booked On')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

@@ -15,18 +15,21 @@ class BookingsTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
-                TextColumn::make('room_id')
-                    ->searchable(),
+                TextColumn::make('#')
+                    ->rowIndex()
+                    ->sortable(),
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),
                 TextColumn::make('phone')
                     ->searchable(),
+                TextColumn::make('room.number')
+                    ->label('Room number')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('check_in')
                     ->date()
                     ->sortable(),
@@ -34,24 +37,22 @@ class BookingsTable
                     ->date()
                     ->sortable(),
                 TextColumn::make('number_of_guests')
-                    ->numeric()
-                    ->sortable(),
+                    ->numeric(),
                 TextColumn::make('amount')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Amount (₦)')
+                    ->numeric(),
                 TextColumn::make('booking_type')
-                    ->searchable(),
+                    ->badge(),
                 TextColumn::make('is_completed')
-                    ->numeric()
+                    ->label('Status')
+                    ->formatStateUsing(fn($state) => $state ? 'Completed' : 'Ongoing')
+                    ->badge(fn($state) => $state ? 'success' : 'warning')
                     ->sortable(),
-                TextColumn::make('booked_by')
-                    ->numeric()
+                TextColumn::make('user.name')
+                    ->label('Booked By')
+                    ->placeholder('-')
                     ->sortable(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
