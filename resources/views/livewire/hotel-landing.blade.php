@@ -60,6 +60,9 @@
                         <svg x-show="darkMode" x-cloak class="w-5 h-5" style="color: #d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                     </button>
 
+                    {{-- User Auth / Dropdown Menu --}}
+                    <x-hotel-auth-menu />
+
                     <a href="#availability" class="px-6 py-2.5 rounded-full text-sm font-semibold text-white tracking-wide uppercase transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[0_0_20px_rgba(212,168,83,0.4)]" style="background: linear-gradient(135deg, #d4a853, #b8922f);">
                         Book Now
                     </a>
@@ -89,6 +92,9 @@
                     <a href="#testimonials" @click="mobileOpen = false" class="text-white/80 hover:text-white text-sm font-medium py-1.5">Reviews</a>
                     <a href="#contact" @click="mobileOpen = false" class="text-white/80 hover:text-white text-sm font-medium py-1.5">Contact</a>
                     <a href="#availability" @click="mobileOpen = false" class="px-6 py-2.5 rounded-full text-sm font-semibold text-white text-center" style="background: linear-gradient(135deg, #d4a853, #b8922f);">Book Now</a>
+                    
+                    {{-- Mobile Auth Menu --}}
+                    <x-hotel-auth-menu :mobile="true" />
                 </div>
             </div>
         </div>
