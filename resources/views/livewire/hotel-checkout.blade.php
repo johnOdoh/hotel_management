@@ -315,7 +315,7 @@
                             @else
                                 <img src="{{ asset('images/hotel/room.jpg') }}" alt="{{ $roomCategory->name }}" class="w-full h-full object-cover">
                             @endif
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                            <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent"></div>
 
                             <div class="absolute bottom-4 left-4 right-4 text-white">
                                 <span class="text-[10px] tracking-[0.2em] uppercase font-semibold text-amber-400">Selected Category</span>

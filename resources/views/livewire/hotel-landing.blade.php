@@ -92,7 +92,7 @@
                     <a href="#testimonials" @click="mobileOpen = false" class="text-white/80 hover:text-white text-sm font-medium py-1.5">Reviews</a>
                     <a href="#contact" @click="mobileOpen = false" class="text-white/80 hover:text-white text-sm font-medium py-1.5">Contact</a>
                     <a href="#availability" @click="mobileOpen = false" class="px-6 py-2.5 rounded-full text-sm font-semibold text-white text-center" style="background: linear-gradient(135deg, #d4a853, #b8922f);">Book Now</a>
-                    
+
                     {{-- Mobile Auth Menu --}}
                     <x-hotel-auth-menu :mobile="true" />
                 </div>
@@ -838,7 +838,7 @@
                             {{-- Author Profile & Room Info --}}
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t" style="border-color: var(--hotel-border);">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md shrink-0 bg-gradient-to-tr" :class="t.color">
+                                    <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md shrink-0 bg-linear-to-tr" :class="t.color">
                                         <span x-text="t.avatar"></span>
                                     </div>
                                     <div>

@@ -30,14 +30,15 @@ class BookingsTable
                     ->label('Room number')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('room.category.name')
+                    ->label('Room Type')
+                    ->sortable(),
                 TextColumn::make('check_in')
                     ->date()
                     ->sortable(),
                 TextColumn::make('check_out')
                     ->date()
                     ->sortable(),
-                TextColumn::make('number_of_guests')
-                    ->numeric(),
                 TextColumn::make('amount')
                     ->label('Amount (₦)')
                     ->numeric(),

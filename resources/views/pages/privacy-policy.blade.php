@@ -1,4 +1,4 @@
-@component('layouts.guest', ['title' => 'Privacy Policy — Grand Horizon Hotel & Suites'])
+@component('layouts.guest', ['title' => 'Privacy Policy — '. config('app.name') .' Hotel & Suites'])
     <div x-data="{
         darkMode: document.documentElement.classList.contains('dark'),
         toggleDarkMode() {
@@ -26,15 +26,13 @@
                             </svg>
                         </div>
                         <div>
-                            <span class="text-white font-playfair text-lg font-semibold tracking-wide block">Grand Horizon</span>
+                            <span class="text-white font-playfair text-lg font-semibold tracking-wide block">{{ config('app.name') }}</span>
                             <span class="hidden sm:block text-[10px] tracking-[0.25em] uppercase font-medium" style="color: #d4a853;">Hotel & Suites</span>
                         </div>
                     </a>
 
                     <div class="flex items-center gap-4 sm:gap-6">
                         <a href="{{ route('home') }}" class="text-xs sm:text-sm font-medium text-white/80 hover:text-white transition-colors">Home</a>
-                        <a href="{{ route('home') }}#rooms" class="text-xs sm:text-sm font-medium text-white/80 hover:text-white transition-colors">Rooms</a>
-                        <a href="{{ route('terms') }}" class="text-xs sm:text-sm font-medium text-white/80 hover:text-white transition-colors">Terms of Service</a>
 
                         {{-- Dark Mode Toggle --}}
                         <button @click="toggleDarkMode()" class="p-2 rounded-full border text-white/80 hover:text-white transition-all duration-300 hover:scale-105" style="border-color: rgba(212,168,83,0.35); background: rgba(255,255,255,0.08);" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
@@ -54,14 +52,14 @@
         {{-- ========================================== --}}
         <header class="relative py-16 sm:py-20 overflow-hidden" style="background: var(--hotel-navy);">
             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
-            
+
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <span class="inline-block py-1 px-4 rounded-full text-xs font-semibold tracking-[0.25em] uppercase mb-4 border" style="background: rgba(212,168,83,0.15); color: #e8c878; border-color: rgba(212,168,83,0.4);">
                     Legal & Privacy
                 </span>
                 <h1 class="font-playfair text-4xl sm:text-5xl font-bold text-white mb-4">Guest Privacy Policy</h1>
                 <p class="text-sm sm:text-base text-white/70 max-w-xl mx-auto leading-relaxed">
-                    How Grand Horizon Hotel & Suites collects, safeguards, and respects your personal information.
+                    How {{ config('app.name') }} Hotel & Suites collects, safeguards, and respects your personal information.
                 </p>
                 <div class="mt-6 text-xs text-white/50">
                     Last Updated: August 19, 2026 &bull; Effective Immediately
@@ -82,7 +80,7 @@
                         Our Commitment to Hospitality Privacy
                     </h2>
                     <p class="text-sm sm:text-base leading-relaxed" style="color: var(--hotel-subtext);">
-                        At <strong>Grand Horizon Hotel & Suites</strong> ("we," "our," or "the Hotel"), your trust is our most valued asset. We are dedicated to maintaining the confidentiality, integrity, and security of all personal information entrusted to us by our guests, visitors, patrons, and website users. This Privacy Policy details the types of information we collect, how it is utilized to elevate your stay, and your legal rights regarding your data.
+                        At <strong>{{ config('app.name') }} Hotel & Suites</strong> ("we," "our," or "the Hotel"), your trust is our most valued asset. We are dedicated to maintaining the confidentiality, integrity, and security of all personal information entrusted to us by our guests, visitors, patrons, and website users. This Privacy Policy details the types of information we collect, how it is utilized to elevate your stay, and your legal rights regarding your data.
                     </p>
                 </div>
 
@@ -195,7 +193,7 @@
                         For inquiries, data access requests, or privacy concerns, please contact our dedicated Data Protection Officer:
                     </p>
                     <div class="p-5 rounded-2xl border text-sm space-y-1.5" style="background: rgba(212,168,83,0.06); border-color: rgba(212,168,83,0.25);">
-                        <p><strong>Grand Horizon Hotel & Suites — Privacy Office</strong></p>
+                        <p><strong>{{ config('app.name') }} Hotel & Suites — Privacy Office</strong></p>
                         <p class="text-xs" style="color: var(--hotel-subtext);">Address: 123 Luxury Coastal Blvd, Waterfront Suite 100</p>
                         <p class="text-xs" style="color: var(--hotel-subtext);">Email: <a href="mailto:privacy@grandhorizon.com" class="text-amber-500 hover:underline">privacy@grandhorizon.com</a></p>
                         <p class="text-xs" style="color: var(--hotel-subtext);">Phone: +1 (555) 123-4567 (Ext: Privacy & Compliance)</p>
@@ -210,7 +208,7 @@
         {{-- ========================================== --}}
         <footer class="py-8 px-4 sm:px-6 lg:px-8 border-t transition-colors duration-300" style="background: var(--hotel-navy); border-color: rgba(212,168,83,0.15);">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
-                <p>&copy; {{ date('Y') }} Grand Horizon Hotel & Suites. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} {{ config('app.name') }} Hotel & Suites. All rights reserved.</p>
                 <div class="flex gap-6">
                     <a href="{{ route('terms') }}" class="hover:text-amber-400 transition-colors">Terms of Service</a>
                     <a href="{{ route('home') }}#rooms" class="hover:text-amber-400 transition-colors">Accommodations</a>
