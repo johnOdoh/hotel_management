@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
-use App\Enums\Department;
+use App\Enums\UserRole;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -15,26 +15,24 @@ class UserForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->placeholder('Name')
                     ->required()
-                    ->readOnly(),
+                    ->readOnlyOn('edit'),
                 TextInput::make('email')
                     ->label('Email address')
+                    ->placeholder('Email address')
                     ->email()
-                    ->readOnly()
+                    ->unique(ignoreRecord: true)
+                    ->readOnlyOn('edit')
                     ->required(),
-                TextInput::make('job_title')
-                    ->label('Job Title')
-                    ->required(),
-                Select::make('department')
-                    ->label('Department')
+                Select::make('role')
+                    ->label('Role')
                     ->required()
-                    ->options(Department::toOptions()),
-                TextInput::make('phone')
-                    ->label('Phone Number')
-                    ->tel()
-                    ->required(),
+                    ->options(UserRole::class),
                 Toggle::make('is_active')
-                    ->required(),
+                    ->required()
+                    ->inline(false)
+                    ->default(true),
             ]);
     }
 }

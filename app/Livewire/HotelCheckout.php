@@ -4,9 +4,7 @@ namespace App\Livewire;
 
 use App\Actions\CheckRoomAvailability;
 use App\Enums\BookingType;
-use App\Enums\RoomStatus;
 use App\Models\Booking;
-use App\Models\Room;
 use App\Models\RoomCategory;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -64,10 +62,8 @@ class HotelCheckout extends Component
     }
 
 
-    public function mount(RoomCategory $roomCategory): void
+    public function mount(): void
     {
-        $this->roomCategory = $roomCategory;
-
         if (empty($this->checkIn)) {
             $this->checkIn = Carbon::now()->addDay()->format('Y-m-d');
         }

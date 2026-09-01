@@ -6,6 +6,7 @@ use App\Actions\CheckRoomAvailability;
 use App\Models\RoomCategory;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 #[Layout('layouts.guest')]
@@ -13,7 +14,10 @@ class RoomCategoryDetails extends Component
 {
     public RoomCategory $roomCategory;
 
+    #[Url]
     public string $checkIn = '';
+
+    #[Url]
     public string $checkOut = '';
     public bool $searched = false;
     public bool $isAvailable = false;
@@ -21,6 +25,13 @@ class RoomCategoryDetails extends Component
     public int $totalNights = 0;
     public string $totalPrice = '0.00';
     public ?string $errorMessage = null;
+
+    public function mount(): void
+    {
+        if (!empty($this->checkIn) && !empty($this->checkOut)) {
+            $this->checkAvailability();
+        }
+    }
 
     public function checkAvailability(): void
     {

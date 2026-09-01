@@ -21,18 +21,9 @@ class UsersTable
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->placeholder('-')
+                TextColumn::make('role')
+                    ->badge()
                     ->sortable(),
-                TextColumn::make('profile.job_title')
-                    ->label('Job Title')
-                    ->placeholder('-')
-                    ->searchable(),
-                TextColumn::make('profile.department')
-                    ->label('Department')
-                    ->placeholder('-')
-                    ->searchable(),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('created_at')

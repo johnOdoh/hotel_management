@@ -10,6 +10,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
@@ -41,6 +42,9 @@ class RoomsRelationManager extends RelationManager
                     ->integer()
                     ->numeric()
                     ->unique(ignoreRecord: true),
+                Select::make('status')
+                    ->required()
+                    ->options(RoomStatus::class),
             ]);
         }
 

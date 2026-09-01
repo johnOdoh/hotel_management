@@ -269,7 +269,7 @@
                                 </div>
                                 @if($selectedCategory)
                                     <div class="flex items-center gap-3">
-                                        <a href="{{ route('room.details', $selectedCategory) }}" class="px-5 py-2.5 rounded-xl text-xs font-semibold text-white border border-white/30 hover:border-white transition-all text-center">
+                                        <a href="{{ route('room.details', ['roomCategory' => $selectedCategory, 'checkIn' => $checkIn, 'checkOut' => $checkOut]) }}" class="px-5 py-2.5 rounded-xl text-xs font-semibold text-white border border-white/30 hover:border-white transition-all text-center">
                                             Details
                                         </a>
                                         <a href="{{ route('checkout', ['roomCategory' => $selectedCategory, 'checkIn' => $checkIn, 'checkOut' => $checkOut]) }}" class="px-6 py-2.5 rounded-xl text-xs font-semibold text-white uppercase tracking-wider transition-all duration-300 hover:scale-105 shadow-lg text-center" style="background: linear-gradient(135deg, #16a34a, #15803d);">
