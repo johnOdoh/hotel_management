@@ -413,76 +413,28 @@
 
             {{-- Gallery Tabs --}}
             <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
-                <button @click="galleryFilter = 'all'" :class="galleryFilter === 'all' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300">
+                <button @click="galleryFilter = 'all'" :class="galleryFilter === 'all' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer">
                     All Highlights
                 </button>
-                <button @click="galleryFilter = 'exterior'" :class="galleryFilter === 'exterior' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300">
+                <button @click="galleryFilter = 'exterior'" :class="galleryFilter === 'exterior' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer">
                     Exterior & Views
                 </button>
-                <button @click="galleryFilter = 'suites'" :class="galleryFilter === 'suites' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300">
-                    Suites & Rooms
+                <button @click="galleryFilter = 'pool'" :class="galleryFilter === 'pool' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer">
+                    Pool & Deck
                 </button>
-                <button @click="galleryFilter = 'lobby'" :class="galleryFilter === 'lobby' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300">
-                    Lobby & Lounges
+                <button @click="galleryFilter = 'lobby'" :class="galleryFilter === 'lobby' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer">
+                    Lobby & Reception
+                </button>
+                <button @click="galleryFilter = 'restaurant'" :class="galleryFilter === 'restaurant' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer">
+                    Restaurant & Dining
+                </button>
+                <button @click="galleryFilter = 'bar'" :class="galleryFilter === 'bar' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-amber-500'" class="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer">
+                    Bar & Lounge
                 </button>
             </div>
 
-            {{-- Gallery Grid --}}
-            @php
-                $galleryItems = [
-                    [
-                        'image' => asset('images/hotel/hero_night.jpg'),
-                        'category' => 'exterior',
-                        'title' => 'Twilight Resort Night Exterior',
-                        'desc' => 'Illuminated contemporary architecture with reflecting pools and ocean breeze.'
-                    ],
-                    [
-                        'image' => asset('images/hotel/gallery_exterior.jpg'),
-                        'category' => 'exterior',
-                        'title' => 'Twilight Resort Day Exterior',
-                        'desc' => 'Daylight exterior with beautiful flowers and lush greenery.'
-                    ],
-                    [
-                        'image' => asset('images/hotel/gallery_deluxe.jpg'),
-                        'category' => 'suites',
-                        'title' => 'Ocean View Deluxe Balcony',
-                        'desc' => 'Panoramic sea vistas with plush loungers and private terrace.'
-                    ],
-                    [
-                        'image' => asset('images/hotel/gallery_penthouse.jpg'),
-                        'category' => 'suites',
-                        'title' => 'Presidential Penthouse & Jacuzzi',
-                        'desc' => 'Skyline jacuzzi, crystal chandelier, and duplex living space.'
-                    ],
-                    [
-                        'image' => asset('images/hotel/gallery_lobby.jpg'),
-                        'category' => 'lobby',
-                        'title' => 'Grand Crystal Chandelier Lounge',
-                        'desc' => 'Velvet seating and marble accents for refined socializing.'
-                    ],
-                    [
-                        'image' => asset('images/hotel/gallery_interior.jpg'),
-                        'category' => 'lobby',
-                        'title' => 'Grand Crystal Chandelier Lounge',
-                        'desc' => 'Velvet seating and marble accents for refined socializing.'
-                    ],
-                    [
-                        'image' => asset('images/hotel/gallery_executive.jpg'),
-                        'category' => 'suites',
-                        'title' => 'Executive King Workspace',
-                        'desc' => 'High-speed business suite with skyline panorama and espresso bar.'
-                    ],
-                    [
-                        'image' => asset('images/hotel/gallery_bedroom.jpg'),
-                        'category' => 'suites',
-                        'title' => 'Signature Luxury Suite Bedroom',
-                        'desc' => 'Warm ambient illumination with custom artisan woodwork.'
-                    ],
-                ];
-            @endphp
-
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($galleryItems as $item)
+                @foreach($gallery as $item)
                     <div x-show="galleryFilter === 'all' || galleryFilter === '{{ $item['category'] }}'"
                          x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0 scale-95"
