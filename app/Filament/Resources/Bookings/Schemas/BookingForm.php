@@ -19,7 +19,7 @@ class BookingForm
 {
     protected static function checkAvailability(): \Closure
     {
-        return function ($get, $set) {
+        return function ($get, $set, $record) {
             if (empty($get('room_category')) || empty($get('check_in')) || empty($get('check_out'))) {
                 return [];
             }
@@ -51,7 +51,11 @@ class BookingForm
             $set('days', $days);
             $set('amount_per_day', number_format((float) $amount, 2));
             $set('amount', number_format($amount * $days, 2, '.', ''));
-            return $rooms->pluck('number', 'id')->toArray();
+            $rooms = $rooms->pluck('number', 'id')->toArray();
+            if ($record && $record->room->room_category_id == $get('room_category')) {
+                $rooms[$record->room_id] = $record->room->number;
+            }
+            return $rooms;;
         };
     }
     public static function configure(Schema $schema): Schema

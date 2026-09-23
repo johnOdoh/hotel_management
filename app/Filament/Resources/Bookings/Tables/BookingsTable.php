@@ -14,6 +14,7 @@ class BookingsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('#')
                     ->rowIndex()
@@ -47,7 +48,8 @@ class BookingsTable
                 TextColumn::make('is_completed')
                     ->label('Status')
                     ->formatStateUsing(fn($state) => $state ? 'Completed' : 'Ongoing')
-                    ->badge(fn($state) => $state ? 'success' : 'warning')
+                    ->badge()
+                    ->color(fn($state) => $state ? 'success' : 'warning')
                     ->sortable(),
                 TextColumn::make('user.name')
                     ->label('Booked By')
@@ -63,7 +65,8 @@ class BookingsTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
+                EditAction::make()
+                    ->visible(fn($record) => !$record->is_completed),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

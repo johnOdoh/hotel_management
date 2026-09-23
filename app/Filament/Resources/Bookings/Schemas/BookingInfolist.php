@@ -30,11 +30,12 @@ class BookingInfolist
                 TextEntry::make('is_completed')
                     ->label('Status')
                     ->formatStateUsing(fn($state) => $state ? 'Completed' : 'Ongoing')
-                    ->badge(fn($state) => $state ? 'success' : 'warning'),
+                    ->badge()
+                    ->color(fn($state) => $state ? 'success' : 'warning'),
                 TextEntry::make('user.name')
                     ->label('Booked by')
                     ->numeric()
-                    ->placeholder('-'),
+                    ->placeholder('N/A'),
                 TextEntry::make('created_at')
                     ->label('Booked On')
                     ->dateTime()

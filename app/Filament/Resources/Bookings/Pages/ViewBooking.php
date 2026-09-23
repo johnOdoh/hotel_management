@@ -13,7 +13,8 @@ class ViewBooking extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            EditAction::make(),
+            EditAction::make()
+                ->visible(fn($record) => !$record->is_completed),
         ];
     }
 }
