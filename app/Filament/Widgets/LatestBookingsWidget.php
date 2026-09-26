@@ -13,14 +13,13 @@ class LatestBookingsWidget extends BaseWidget
 
     protected static ?int $sort = 5;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {
         return $table
             ->query(
-                Booking::query()
-                    ->with('room.category')
+                Booking::with('room.category')
                     ->latest()
                     ->limit(8)
             )
@@ -51,7 +50,7 @@ class LatestBookingsWidget extends BaseWidget
                 Tables\Columns\TextColumn::make('booking_type')
                     ->label('Type')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'Online' => 'info',
                         'Walk In' => 'warning',
                         default => 'gray',
