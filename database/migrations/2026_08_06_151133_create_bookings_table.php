@@ -20,8 +20,11 @@ return new class extends Migration
             $table->date('check_in');
             $table->date('check_out');
             $table->unsignedTinyInteger('number_of_guests');
+            $table->string('estimated_arrival_time')->nullable();
+            $table->text('special_request')->nullable();
+            $table->string('status');
             $table->decimal('amount', 10, 2);
-            $table->string('booking_type'); //online, in_person
+            $table->string('booking_type'); // online, in_person
             $table->boolean('is_completed')->default(false);
             $table->foreignId('booked_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();

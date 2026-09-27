@@ -246,10 +246,10 @@
                                 </div>
 
                                 {{-- Payment Method Radio Group --}}
-                                <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
+                                {{-- <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
                                     <label class="block text-xs font-semibold uppercase tracking-wider mb-3" style="color: var(--hotel-heading);">Select Payment Method</label>
                                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                        {{-- Credit/Debit Card --}}
+
                                         <label class="relative flex flex-col p-4 rounded-xl border cursor-pointer transition-all duration-300 hover:border-amber-500" :class="$wire.paymentMethod === 'card' ? 'border-amber-500 bg-amber-500/5 ring-1 ring-amber-500' : 'border-gray-200 dark:border-gray-800'">
                                             <input type="radio" wire:model="paymentMethod" value="card" class="sr-only">
                                             <div class="flex items-center justify-between mb-2">
@@ -262,7 +262,6 @@
                                             <span class="text-[10px] text-gray-500">Secure Instant Pay</span>
                                         </label>
 
-                                        {{-- Pay at Hotel --}}
                                         <label class="relative flex flex-col p-4 rounded-xl border cursor-pointer transition-all duration-300 hover:border-amber-500" :class="$wire.paymentMethod === 'arrival' ? 'border-amber-500 bg-amber-500/5 ring-1 ring-amber-500' : 'border-gray-200 dark:border-gray-800'">
                                             <input type="radio" wire:model="paymentMethod" value="arrival" class="sr-only">
                                             <div class="flex items-center justify-between mb-2">
@@ -275,7 +274,6 @@
                                             <span class="text-[10px] text-gray-500">Cash or POS at Desk</span>
                                         </label>
 
-                                        {{-- Bank Transfer --}}
                                         <label class="relative flex flex-col p-4 rounded-xl border cursor-pointer transition-all duration-300 hover:border-amber-500" :class="$wire.paymentMethod === 'bank_transfer' ? 'border-amber-500 bg-amber-500/5 ring-1 ring-amber-500' : 'border-gray-200 dark:border-gray-800'">
                                             <input type="radio" wire:model="paymentMethod" value="bank_transfer" class="sr-only">
                                             <div class="flex items-center justify-between mb-2">
@@ -288,7 +286,7 @@
                                             <span class="text-[10px] text-gray-500">Direct Wire Transfer</span>
                                         </label>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
@@ -296,10 +294,10 @@
                         <div class="pt-2">
                             <button type="submit" wire:loading.attr="disabled" class="w-full py-4 rounded-2xl font-semibold text-base text-white tracking-wide uppercase shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(212,168,83,0.4)] flex items-center justify-center gap-3 disabled:opacity-50" style="background: linear-gradient(135deg, #d4a853, #b8922f);">
                                 <svg wire:loading class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                                <span wire:loading.remove>Confirm Reservation &bull; ₦{{ number_format($totalPrice, 2) }}</span>
+                                <span wire:loading.remove>Proceed to Payment &bull; ₦{{ number_format($totalPrice, 2) }}</span>
                                 <span wire:loading>Processing Reservation...</span>
                             </button>
-                            <p class="text-center text-xs mt-3 text-gray-400">By confirming, you agree to the {{ config('app.name') }} Booking & Cancellation Policy.</p>
+                            <p class="text-center text-xs mt-3 text-gray-400">By confirming, you agree to the {{ config('app.name') }} <a href="{{ route('terms') }}" target="_blank" class="hover:underline text-amber-800">Booking & Cancellation Policy.</a></p>
                         </div>
                     </form>
                 </div>

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\BookingStatus;
+use App\Enums\BookingType;
 use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +21,8 @@ class Booking extends Model
             'amount' => 'decimal:2',
             'number_of_guests' => 'integer',
             'is_completed' => 'boolean',
+            'status' => BookingStatus::class,
+            'booking_type' => BookingType::class,
         ];
     }
 

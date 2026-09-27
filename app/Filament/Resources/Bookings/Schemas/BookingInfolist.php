@@ -27,11 +27,12 @@ class BookingInfolist
                     ->numeric(),
                 TextEntry::make('booking_type')
                     ->badge(),
-                TextEntry::make('is_completed')
-                    ->label('Status')
-                    ->formatStateUsing(fn($state) => $state ? 'Completed' : 'Ongoing')
-                    ->badge()
-                    ->color(fn($state) => $state ? 'success' : 'warning'),
+                TextEntry::make('status')
+                    ->badge(),
+                TextEntry::make('special_request')
+                    ->placeholder('N/A'),
+                TextEntry::make('estimated_arrival_time')
+                    ->placeholder('N/A'),
                 TextEntry::make('user.name')
                     ->label('Booked by')
                     ->numeric()

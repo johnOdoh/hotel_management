@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Actions\CheckRoomAvailability;
+use App\Enums\BookingStatus;
 use App\Enums\BookingType;
 use App\Models\Booking;
 use App\Models\RoomCategory;
@@ -136,8 +137,10 @@ class HotelCheckout extends Component
             'check_out' => $this->checkOut,
             'number_of_guests' => $this->guests,
             'amount' => $this->totalPrice,
-            'booking_type' => BookingType::Online->value,
-            'booked_by' => auth()->check() ? auth()->id() : null,
+            'booking_type' => BookingType::Online,
+            'status' => BookingStatus::Booked,
+            'estimated_arrival_time' => $this->estimatedArrival,
+            'special_request' => $this->specialRequests,
         ]);
 
         $this->confirmedBooking = $booking;
