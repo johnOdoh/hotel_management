@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources\Bookings\Tables;
 
+use App\Enums\BookingStatus;
+use App\Models\Booking;
 use Carbon\Carbon;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -76,7 +79,7 @@ class BookingsTable
             ->filters([
                 Filter::make('check_in')
                     ->label('Check-in Date')
-                    ->form([
+                    ->schema([
                         DatePicker::make('check_in_from')
                             ->label('Check-in From'),
                         DatePicker::make('check_in_until')
@@ -109,7 +112,7 @@ class BookingsTable
 
                 Filter::make('check_out')
                     ->label('Check-out Date')
-                    ->form([
+                    ->schema([
                         DatePicker::make('check_out_from')
                             ->label('Check-out From'),
                         DatePicker::make('check_out_until')
@@ -144,6 +147,33 @@ class BookingsTable
                 ViewAction::make(),
                 EditAction::make()
                     ->visible(fn($record) => ! $record->is_completed),
+                Action::make('check_in')
+                    ->label('Check In')
+                    ->icon('heroicon-s-check-circle')
+                    ->color('success')
+                    ->visible(fn($record) => $record->status === BookingStatus::Booked)
+                    ->authorize('update', Booking::class)
+                    ->requiresConfirmation()
+                    ->modalDescription('Are you sure you want to check-in this guest?')
+                    ->action(function ($record) {
+                        $record->update([
+                            'status' => BookingStatus::CheckedIn,
+                        ]);
+                    }),
+                Action::make('check_out')
+                    ->label('Check Out')
+                    ->icon('heroicon-s-check-circle')
+                    ->color('info')
+                    ->visible(fn($record) => $record->status === BookingStatus::CheckedIn)
+                    ->authorize('update', Booking::class)
+                    ->requiresConfirmation()
+                    ->modalDescription('Are you sure you want to check-out this guest?')
+                    ->action(function ($record) {
+                        $record->update([
+                            'status' => BookingStatus::CheckedOut,
+                            'is_completed' => true
+                        ]);
+                    })
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

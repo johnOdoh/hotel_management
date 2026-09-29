@@ -33,6 +33,11 @@ class WorkAllocationSchedule extends Page
 
     public string $selectedPosition = '';
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()->can('viewAny', Shift::class);
+    }
+
     public function mount(): void
     {
         $this->startOfWeekDate = now()->startOfWeek()->toDateString();
@@ -64,23 +69,24 @@ class WorkAllocationSchedule extends Page
         return Action::make('assignShift')
             ->label('Assign Shift')
             ->icon(Heroicon::PlusCircle)
-            ->modalHeading(fn () => "Assign Shift - {$this->selectedPosition}")
+            ->modalHeading(fn() => "Assign Shift - {$this->selectedPosition}")
             ->modalDescription("Allocate a shift to a {$this->selectedPosition} for the selected day.")
             ->modalWidth('lg')
-            ->fillForm(fn (array $arguments) => [
+            ->visible(auth()->user()->can('create', Shift::class))
+            ->fillForm(fn(array $arguments) => [
                 'date' => $arguments['date'] ?? now()->toDateString(),
                 'start_time' => '08:00',
                 'end_time' => '16:00',
             ])
-            ->form([
+            ->schema([
                 Select::make('employee_id')
-                    ->label(fn () => "Employee ({$this->selectedPosition})")
-                    ->options(fn () => Employee::where('position', $this->selectedPosition)->orderBy('name')->pluck('name', 'id'))
+                    ->label(fn() => "Employee ({$this->selectedPosition})")
+                    ->options(fn() => Employee::where('position', $this->selectedPosition)->orderBy('name')->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->required()
                     ->rules([
-                        fn ($get) => function (string $attribute, $value, Closure $fail) use ($get) {
+                        fn($get) => function (string $attribute, $value, Closure $fail) use ($get) {
                             $date = $get('date');
                             if (! $value || ! $date) {
                                 return;
@@ -110,7 +116,7 @@ class WorkAllocationSchedule extends Page
                     ->seconds(false)
                     ->required()
                     ->rules([
-                        fn ($get) => function (string $attribute, $value, Closure $fail) use ($get) {
+                        fn($get) => function (string $attribute, $value, Closure $fail) use ($get) {
                             $startTime = $get('start_time');
                             if (! $value || ! $startTime) {
                                 return;
@@ -140,25 +146,26 @@ class WorkAllocationSchedule extends Page
     {
         return Action::make('editShift')
             ->label('Edit Shift')
-            ->modalHeading(fn () => "Edit Shift - {$this->selectedPosition}")
+            ->modalHeading(fn() => "Edit Shift - {$this->selectedPosition}")
             ->modalWidth('lg')
-            ->record(fn (array $arguments) => isset($arguments['shift_id']) ? Shift::find($arguments['shift_id']) : null)
-            ->fillForm(fn (?Shift $record) => $record ? [
+            ->authorize('update', Shift::class)
+            ->record(fn(array $arguments) => isset($arguments['shift_id']) ? Shift::find($arguments['shift_id']) : null)
+            ->fillForm(fn(?Shift $record) => $record ? [
                 'employee_id' => $record->employee_id,
                 'date' => $record->date->toDateString(),
                 'start_time' => $record->start_time,
                 'end_time' => $record->end_time,
                 'role_or_notes' => $record->role_or_notes,
             ] : [])
-            ->form([
+            ->schema([
                 Select::make('employee_id')
-                    ->label(fn () => "Employee ({$this->selectedPosition})")
-                    ->options(fn () => Employee::where('position', $this->selectedPosition)->orderBy('name')->pluck('name', 'id'))
+                    ->label(fn() => "Employee ({$this->selectedPosition})")
+                    ->options(fn() => Employee::where('position', $this->selectedPosition)->orderBy('name')->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->required()
                     ->rules([
-                        fn ($get, ?Shift $record) => function (string $attribute, $value, Closure $fail) use ($get, $record) {
+                        fn($get, ?Shift $record) => function (string $attribute, $value, Closure $fail) use ($get, $record) {
                             $date = $get('date');
                             if (! $value || ! $date) {
                                 return;
@@ -193,7 +200,7 @@ class WorkAllocationSchedule extends Page
                     ->seconds(false)
                     ->required()
                     ->rules([
-                        fn ($get) => function (string $attribute, $value, Closure $fail) use ($get) {
+                        fn($get) => function (string $attribute, $value, Closure $fail) use ($get) {
                             $startTime = $get('start_time');
                             if (! $value || ! $startTime) {
                                 return;
@@ -208,11 +215,12 @@ class WorkAllocationSchedule extends Page
                     ->label('Assignment / Station / Notes')
                     ->placeholder('e.g. Front Desk, Housekeeping, Bar, Concierge'),
             ])
-            ->extraModalActions([
+            ->extraModalFooterActions([
                 Action::make('deleteShift')
                     ->label('Delete Shift')
                     ->color('danger')
                     ->requiresConfirmation()
+                    ->authorize('delete', Shift::class)
                     ->modalHeading('Delete Shift')
                     ->modalDescription('Are you sure you want to remove this shift allocation?')
                     ->action(function (?Shift $record): void {
@@ -267,7 +275,7 @@ class WorkAllocationSchedule extends Page
             ->whereBetween('date', [$startOfWeek->toDateString(), $endOfWeek->toDateString()])
             ->orderBy('start_time');
 
-        $shifts = $query->get()->groupBy(fn ($shift) => $shift->date->toDateString());
+        $shifts = $query->get()->groupBy(fn($shift) => $shift->date->toDateString());
 
         $employees = Employee::where('position', $this->selectedPosition)->orderBy('name')->get();
 

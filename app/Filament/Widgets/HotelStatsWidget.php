@@ -57,6 +57,7 @@ class HotelStatsWidget extends StatsOverviewWidget
 
         return [
             Stat::make('Total Revenue', '₦' . number_format((float) $totalRevenue, 2))
+                ->visible(auth()->user()->can('viewAny', Employee::class))
                 ->description(
                     $revenueChange !== null
                         ? abs(round($revenueChange, 1)) . '% ' . ($revenueChange >= 0 ? 'increase' : 'decrease') . ' vs last month'
@@ -87,6 +88,7 @@ class HotelStatsWidget extends StatsOverviewWidget
             Stat::make('Employees', $totalEmployees)
                 ->description("{$activeEmployees} active staff members")
                 ->descriptionIcon('heroicon-m-user-group')
+                ->visible(auth()->user()->can('viewAny', Employee::class))
                 ->color('success'),
 
             Stat::make('This Month Revenue', '₦' . number_format((float) $thisMonthRevenue, 2))
