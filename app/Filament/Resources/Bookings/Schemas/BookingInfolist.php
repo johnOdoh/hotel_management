@@ -16,6 +16,8 @@ class BookingInfolist
                     ->label('Email address')
                     ->placeholder('-'),
                 TextEntry::make('phone'),
+                TextEntry::make('reference')
+                    ->label('Booking Reference'),
                 TextEntry::make('room.number')
                     ->label('Room Number'),
                 TextEntry::make('check_in')
@@ -23,8 +25,7 @@ class BookingInfolist
                 TextEntry::make('check_out')
                     ->date(),
                 TextEntry::make('amount')
-                    ->label('Amount(₦)')
-                    ->numeric(),
+                    ->money('NGN'),
                 TextEntry::make('booking_type')
                     ->badge(),
                 TextEntry::make('status')

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Bookings\Pages;
 
+use App\Actions\GenerateBookingReference;
 use App\Enums\BookingStatus;
 use App\Enums\BookingType;
 use App\Filament\Resources\Bookings\BookingResource;
@@ -18,7 +19,7 @@ class CreateBooking extends CreateRecord
         $data['booked_by'] = auth()->user()->id;
         $data['booking_type'] = BookingType::Walk_In;
         $data['status'] = BookingStatus::CheckedIn;
-        unset($data['room_category'], $data['days'], $data['amount_per_day']);
+        $data['reference'] = app(GenerateBookingReference::class)($data['name']);
 
         return $data;
     }

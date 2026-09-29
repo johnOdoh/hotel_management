@@ -6,6 +6,7 @@ use Filament\Support\Contracts\HasColor;
 
 enum BookingStatus: string implements HasColor
 {
+    case Pending = 'Pending';
     case Booked = 'Booked';
     case CheckedIn = 'Checked In';
     case CheckedOut = 'Checked Out';
@@ -14,9 +15,10 @@ enum BookingStatus: string implements HasColor
     public function getColor(): string
     {
         return match ($this) {
+            self::Pending => 'gray',
             self::Booked => 'primary',
             self::CheckedIn => 'success',
-            self::CheckedOut => 'warning',
+            self::CheckedOut => 'info',
             self::CANCELLED => 'danger',
         };
     }

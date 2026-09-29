@@ -23,6 +23,11 @@ class BookingsTable
                 TextColumn::make('#')
                     ->rowIndex()
                     ->sortable(),
+                TextColumn::make('reference')
+                    ->label('Booking Reference')
+                    ->weight('semibold')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('name')
                     ->label('Guest Name')
                     ->weight('semibold')
@@ -53,6 +58,7 @@ class BookingsTable
                     ->sortable()
                     ->weight('semibold'),
                 TextColumn::make('status')
+                    ->badge()
                     ->sortable(),
                 TextColumn::make('booking_type')
                     ->badge()

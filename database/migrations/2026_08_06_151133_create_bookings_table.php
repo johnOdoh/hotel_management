@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignUlid('room_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('reference')->unique();
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone');
