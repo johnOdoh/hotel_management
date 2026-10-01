@@ -58,6 +58,7 @@ class BookingForm
             return $rooms;;
         };
     }
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -117,7 +118,6 @@ class BookingForm
                         TextInput::make('email')
                             ->label('Email address')
                             ->placeholder('Email address')
-                            ->required()
                             ->email(),
                         TextInput::make('phone')
                             ->label('Phone number')

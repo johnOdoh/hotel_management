@@ -2,6 +2,8 @@
 
 namespace App\Actions;
 
+use App\Enums\BookingStatus;
+use App\Enums\RoomStatus;
 use App\Models\Room;
 use Carbon\Carbon;
 
@@ -14,8 +16,13 @@ class CheckRoomAvailability
 
         // Find rooms in this category that are open and not booked during the selected dates
         $rooms = Room::where('room_category_id', $category_id)
+            ->where('status', RoomStatus::Open)
             ->whereDoesntHave('reservations', function ($query) use ($checkInDate, $checkOutDate) {
                 $query->where('is_completed', false)
+                    ->where(function ($q) {
+                        $q->where('status', BookingStatus::Pending)
+                            ->where('created_at', '>=', Carbon::now()->subMinutes(10));
+                    })
                     ->where(function ($query) use ($checkInDate, $checkOutDate) {
                         $query->where('check_in', '<', $checkOutDate)
                             ->where('check_out', '>', $checkInDate);

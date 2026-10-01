@@ -21,10 +21,12 @@ class RoomCategoriesTable
                     ->rowIndex()
                     ->sortable(),
                 TextColumn::make('name')
+                    ->weight('semibold')
                     ->searchable(),
                 TextColumn::make('amount')
                     ->label('Amount(₦)')
                     ->money('NGN')
+                    ->weight('semibold')
                     ->sortable(),
                 TextColumn::make('capacity')
                     ->numeric()

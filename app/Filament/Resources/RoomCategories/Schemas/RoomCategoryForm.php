@@ -19,6 +19,7 @@ class RoomCategoryForm
             ->components([
                 TextInput::make('name')
                     ->placeholder('Name')
+                    ->unique(ignoreRecord: true)
                     ->required(),
                 TextInput::make('amount')
                     ->placeholder('Amount')
@@ -27,13 +28,14 @@ class RoomCategoryForm
                     ->step(0.01)
                     ->required()
                     ->numeric(),
-                FileUpload::make('images') 
+                FileUpload::make('images')
                     ->image()
                     ->disk('public')
                     ->directory('rooms')
                     ->multiple()
                     ->maxFiles(5)
                     ->imagePreviewHeight(100)
+                    ->panelLayout('grid')
                     ->maxSize(10240),
                 RichEditor::make('description')
                     ->required()
@@ -45,7 +47,7 @@ class RoomCategoryForm
                         ['undo', 'redo'],
                     ]),
                 TextInput::make('capacity')
-                    ->placeholder('Capacity')
+                    ->placeholder('Number of guests')
                     ->required()
                     ->numeric(),
                 TextInput::make('size')
@@ -55,7 +57,7 @@ class RoomCategoryForm
                     ->minValue(1)
                     ->numeric(),
                 CheckboxList::make('features')
-                    ->options(Feature::pluck('name','id'))
+                    ->options(Feature::pluck('name', 'id'))
                     ->required()
                     ->columnSpanFull()
                     ->columns([

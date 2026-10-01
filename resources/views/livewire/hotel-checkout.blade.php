@@ -71,19 +71,19 @@
                     <p class="text-xs uppercase tracking-[0.3em] font-semibold" style="color: #d4a853;">Reservation Confirmed</p>
                     <h1 class="font-playfair text-3xl sm:text-4xl font-bold mt-2" style="color: var(--hotel-heading);">Thank You, {{ $name }}!</h1>
                     <p class="text-sm mt-3 max-w-md mx-auto" style="color: var(--hotel-subtext);">
-                        Your booking has been received and confirmed. A confirmation copy has been sent to <span class="font-semibold text-amber-500">{{ $email }}</span>.
+                        Thank you for choosing <span class="font-semibold text-amber-500">{{ config('app.name') }}</span>. Your booking has been received and confirmed. A confirmation copy has been sent to <span class="font-semibold text-amber-500">{{ $email }}</span>.
                     </p>
                 </div>
 
                 {{-- Reference & Overview Card --}}
                 <div class="rounded-2xl p-6 mb-8 border" style="background: rgba(212,168,83,0.06); border-color: rgba(212,168,83,0.25);">
-                    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-amber-500/20">
+                    <div class="flex flex-wrap items-center justify-around gap-4 pb-4 border-b border-amber-500/20">
                         <div>
                             <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Booking Reference</span>
                             <p class="font-mono text-xl font-bold tracking-wider" style="color: #d4a853;">{{ $bookingReference }}</p>
                         </div>
                         <div class="text-right">
-                            <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Total Paid / Due</span>
+                            <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Total Paid</span>
                             <p class="text-xl font-bold font-playfair" style="color: var(--hotel-heading);">₦{{ number_format($totalPrice, 2) }}</p>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                 <div class="space-y-3 mb-10 text-sm" style="color: var(--hotel-subtext);">
                     <div class="flex items-start gap-3">
                         <svg class="w-5 h-5 shrink-0 text-emerald-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span><strong>Standard Check-in:</strong> 2:00 PM | <strong>Check-out:</strong> 11:00 AM</span>
+                        <span><strong>Standard Check-in:</strong> 12:00 PM | <strong>Check-out:</strong> 11:00 AM</span>
                     </div>
                     <div class="flex items-start gap-3">
                         <svg class="w-5 h-5 shrink-0 text-emerald-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -121,9 +121,9 @@
                     <a href="{{ route('home') }}" class="px-8 py-3.5 rounded-xl font-semibold text-sm text-white text-center transition-all duration-300 hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, #d4a853, #b8922f);">
                         Return to Homepage
                     </a>
-                    <button onclick="window.print()" class="px-8 py-3.5 rounded-xl font-semibold text-sm border text-center transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/5" style="border-color: var(--hotel-border); color: var(--hotel-heading);">
+                    {{-- <button onclick="window.print()" class="px-8 py-3.5 rounded-xl font-semibold text-sm border text-center transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/5" style="border-color: var(--hotel-border); color: var(--hotel-heading);">
                         Print Receipt
-                    </button>
+                    </button> --}}
                 </div>
             </div>
 
@@ -144,7 +144,7 @@
                         <p class="text-sm mt-2" style="color: var(--hotel-subtext);">Please provide your contact details to secure your reservation at {{ config('app.name') }}.</p>
                     </div>
 
-                    @if (session()->has('error'))
+                    @if (session('error'))
                         <div class="p-4 rounded-xl border flex items-start gap-3 bg-red-500/10 border-red-500/30 text-red-600 dark:text-red-400 text-sm">
                             <svg class="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             <span>{{ session('error') }}</span>
@@ -246,10 +246,10 @@
                                 </div>
 
                                 {{-- Payment Method Radio Group --}}
-                                <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
+                                {{-- <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
                                     <label class="block text-xs font-semibold uppercase tracking-wider mb-3" style="color: var(--hotel-heading);">Select Payment Method</label>
                                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                        {{-- Credit/Debit Card --}}
+
                                         <label class="relative flex flex-col p-4 rounded-xl border cursor-pointer transition-all duration-300 hover:border-amber-500" :class="$wire.paymentMethod === 'card' ? 'border-amber-500 bg-amber-500/5 ring-1 ring-amber-500' : 'border-gray-200 dark:border-gray-800'">
                                             <input type="radio" wire:model="paymentMethod" value="card" class="sr-only">
                                             <div class="flex items-center justify-between mb-2">
@@ -262,7 +262,6 @@
                                             <span class="text-[10px] text-gray-500">Secure Instant Pay</span>
                                         </label>
 
-                                        {{-- Pay at Hotel --}}
                                         <label class="relative flex flex-col p-4 rounded-xl border cursor-pointer transition-all duration-300 hover:border-amber-500" :class="$wire.paymentMethod === 'arrival' ? 'border-amber-500 bg-amber-500/5 ring-1 ring-amber-500' : 'border-gray-200 dark:border-gray-800'">
                                             <input type="radio" wire:model="paymentMethod" value="arrival" class="sr-only">
                                             <div class="flex items-center justify-between mb-2">
@@ -275,7 +274,6 @@
                                             <span class="text-[10px] text-gray-500">Cash or POS at Desk</span>
                                         </label>
 
-                                        {{-- Bank Transfer --}}
                                         <label class="relative flex flex-col p-4 rounded-xl border cursor-pointer transition-all duration-300 hover:border-amber-500" :class="$wire.paymentMethod === 'bank_transfer' ? 'border-amber-500 bg-amber-500/5 ring-1 ring-amber-500' : 'border-gray-200 dark:border-gray-800'">
                                             <input type="radio" wire:model="paymentMethod" value="bank_transfer" class="sr-only">
                                             <div class="flex items-center justify-between mb-2">
@@ -288,7 +286,7 @@
                                             <span class="text-[10px] text-gray-500">Direct Wire Transfer</span>
                                         </label>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
@@ -296,10 +294,10 @@
                         <div class="pt-2">
                             <button type="submit" wire:loading.attr="disabled" class="w-full py-4 rounded-2xl font-semibold text-base text-white tracking-wide uppercase shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(212,168,83,0.4)] flex items-center justify-center gap-3 disabled:opacity-50" style="background: linear-gradient(135deg, #d4a853, #b8922f);">
                                 <svg wire:loading class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                                <span wire:loading.remove>Confirm Reservation &bull; ₦{{ number_format($totalPrice, 2) }}</span>
+                                <span wire:loading.remove>Proceed to Payment &bull; ₦{{ number_format($totalPrice, 2) }}</span>
                                 <span wire:loading>Processing Reservation...</span>
                             </button>
-                            <p class="text-center text-xs mt-3 text-gray-400">By confirming, you agree to the {{ config('app.name') }} Booking & Cancellation Policy.</p>
+                            <p class="text-center text-xs mt-3 text-gray-400">By confirming, you agree to the {{ config('app.name') }} <a href="{{ route('terms') }}" target="_blank" class="hover:underline text-amber-800">Booking & Cancellation Policy.</a></p>
                         </div>
                     </form>
                 </div>

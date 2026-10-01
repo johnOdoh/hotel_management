@@ -16,6 +16,8 @@ class BookingInfolist
                     ->label('Email address')
                     ->placeholder('-'),
                 TextEntry::make('phone'),
+                TextEntry::make('reference')
+                    ->label('Booking Reference'),
                 TextEntry::make('room.number')
                     ->label('Room Number'),
                 TextEntry::make('check_in')
@@ -23,15 +25,15 @@ class BookingInfolist
                 TextEntry::make('check_out')
                     ->date(),
                 TextEntry::make('amount')
-                    ->label('Amount(₦)')
-                    ->numeric(),
+                    ->money('NGN'),
                 TextEntry::make('booking_type')
                     ->badge(),
-                TextEntry::make('is_completed')
-                    ->label('Status')
-                    ->formatStateUsing(fn($state) => $state ? 'Completed' : 'Ongoing')
-                    ->badge()
-                    ->color(fn($state) => $state ? 'success' : 'warning'),
+                TextEntry::make('status')
+                    ->badge(),
+                TextEntry::make('special_request')
+                    ->placeholder('N/A'),
+                TextEntry::make('estimated_arrival_time')
+                    ->placeholder('N/A'),
                 TextEntry::make('user.name')
                     ->label('Booked by')
                     ->numeric()

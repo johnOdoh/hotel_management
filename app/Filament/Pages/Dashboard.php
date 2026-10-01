@@ -2,31 +2,25 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Pages\Auth\EditProfile;
-use Filament\Actions\Action;
 use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
 {
+    protected static ?string $title = 'Hotel Dashboard';
+
     public function getWidgets(): array
     {
         return [
-            \App\Filament\Widgets\WelcomeWidget::class,
-            // \App\Filament\Widgets\LatestNewsWidget::class
+            \App\Filament\Widgets\HotelStatsWidget::class,
+            \App\Filament\Widgets\BookingsRevenueChartWidget::class,
+            \App\Filament\Widgets\BookingTypeRoomStatusChartWidget::class,
+            \App\Filament\Widgets\RoomCategoryRevenueChartWidget::class,
+            \App\Filament\Widgets\LatestBookingsWidget::class,
         ];
     }
 
-    // protected function getHeaderActions(): array
-    // {
-    //     if (!request()->user()->profile()->exists()) {
-    //         return [
-    //             Action::make('complete_profile')
-    //                 ->label('Complete Profile')
-    //                 ->icon('heroicon-o-user-circle')
-    //                 ->color('warning')
-    //                 ->url(fn(): string => EditProfile::getUrl()),
-    //         ];
-    //     }
-    //     return [];
-    // }
+    public function getColumns(): int | array
+    {
+        return 2;
+    }
 }
