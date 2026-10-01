@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Room;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 #[Guarded(['id'])]
 class RoomCategory extends Model
@@ -21,6 +23,15 @@ class RoomCategory extends Model
             'capacity' => 'integer',
             'size' => 'float',
         ];
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function ($model) {
+            foreach ($model->images as $imagePath) {
+                Storage::disk('public')->delete($imagePath);
+            }
+        });
     }
 
     public function rooms(): \Illuminate\Database\Eloquent\Relations\HasMany

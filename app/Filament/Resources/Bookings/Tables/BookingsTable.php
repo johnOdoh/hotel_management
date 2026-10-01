@@ -146,7 +146,7 @@ class BookingsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make()
-                    ->visible(fn($record) => ! $record->is_completed),
+                    ->visible(fn($record) => $record->status === BookingStatus::Booked),
                 Action::make('check_in')
                     ->label('Check In')
                     ->icon('heroicon-s-check-circle')

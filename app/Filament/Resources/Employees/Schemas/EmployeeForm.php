@@ -68,26 +68,35 @@ class EmployeeForm
                             ->preload()
                             ->hint(new HtmlString(Blade::render('<x-filament::loading-indicator class="h-5 w-5" wire:loading wire:target="data.state" />')))
                             ->live()
-                            ->afterStateUpdated(fn ($set) => $set('lga', null))
+                            ->afterStateUpdated(fn($set) => $set('lga', null))
                             ->required(),
                         Select::make('lga')
                             ->label('LGA')
                             ->placeholder('Select LGA')
-                            ->options(fn ($get) => NigeriaLocationService::getLgasForState($get('state')))
+                            ->options(fn($get) => NigeriaLocationService::getLgasForState($get('state')))
                             ->searchable()
                             ->preload()
-                            ->disabled(fn ($get) => blank($get('state')))
+                            ->disabled(fn($get) => blank($get('state')))
                             ->required(),
                         TextInput::make('hometown')
                             ->placeholder('Hometown')
                             ->required(),
+                        FileUpload::make('image')
+                            ->disk('public')
+                            ->directory('employee/images')
+                            ->visibility('public')
+                            ->moveFiles()
+                            ->maxSize(5124)
+                            ->imagePreviewHeight('100')
+                            ->panelLayout('integrated')
+                            ->image(),
                         FileUpload::make('id_document')
                             ->label('ID Document')
                             ->disk('public')
                             ->directory('employee/ids')
                             ->visibility('public')
                             ->moveFiles()
-                            ->maxSize(2048)
+                            ->maxSize(5124)
                             ->imagePreviewHeight('100')
                             ->panelLayout('integrated')
                             ->image(),
@@ -97,7 +106,7 @@ class EmployeeForm
                             ->directory('employee/cv')
                             ->visibility('public')
                             ->moveFiles()
-                            ->maxSize(2048)
+                            ->maxSize(5124)
                             ->imagePreviewHeight('100')
                             ->panelLayout('integrated')
                             ->image(),
@@ -162,13 +171,13 @@ class EmployeeForm
                             ->live(),
                         DatePicker::make('termination_date')
                             ->required()
-                            ->visible(fn ($get) => $get('employment_status') === 'Terminated'),
+                            ->visible(fn($get) => $get('employment_status') === 'Terminated'),
                         Textarea::make('termination_reason')
                             ->label(('Reason for Termination'))
                             ->placeholder('Reason for Termination')
                             ->rows(2)
                             ->required()
-                            ->visible(fn ($get) => $get('employment_status') === 'Terminated'),
+                            ->visible(fn($get) => $get('employment_status') === 'Terminated'),
                         Repeater::make('account_details')
                             ->schema([
                                 TextInput::make('bank_name')->placeholder('Bank Name')->required(),

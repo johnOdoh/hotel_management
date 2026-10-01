@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('state');
             $table->string('cv')->nullable();
             $table->string('id_document')->nullable();
+            $table->string('image')->nullable();
             $table->json('emergency_contact_details');
             //employment details
             $table->string('position');

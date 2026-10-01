@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Enums\EmploymentStatus;
 use App\Enums\Position;
+use App\Models\Shift;
 use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 #[Unguarded]
 class Employee extends Model
@@ -23,6 +25,15 @@ class Employee extends Model
             'termination_date' => 'date',
             'position' => Position::class,
         ];
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function ($model) {
+            Storage::disk('public')->delete($model->cv);
+            Storage::disk('public')->delete($model->id_document);
+            Storage::disk('public')->delete($model->image);
+        });
     }
 
     public function shifts()
@@ -48,7 +59,7 @@ class Employee extends Model
             '#16a34a', // Green 600
         ];
 
-        $index = abs(crc32($this->id.$this->name)) % count($palette);
+        $index = abs(crc32($this->id . $this->name)) % count($palette);
 
         return $palette[$index];
     }

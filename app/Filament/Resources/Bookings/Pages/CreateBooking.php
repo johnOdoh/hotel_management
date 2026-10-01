@@ -18,7 +18,7 @@ class CreateBooking extends CreateRecord
     {
         $data['booked_by'] = auth()->user()->id;
         $data['booking_type'] = BookingType::Walk_In;
-        $data['status'] = BookingStatus::CheckedIn;
+        $data['status'] = BookingStatus::Booked;
         $data['reference'] = app(GenerateBookingReference::class)($data['name']);
 
         return $data;

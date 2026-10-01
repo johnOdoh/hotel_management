@@ -19,6 +19,7 @@ class RoomCategoryForm
             ->components([
                 TextInput::make('name')
                     ->placeholder('Name')
+                    ->unique(ignoreRecord: true)
                     ->required(),
                 TextInput::make('amount')
                     ->placeholder('Amount')
@@ -46,7 +47,7 @@ class RoomCategoryForm
                         ['undo', 'redo'],
                     ]),
                 TextInput::make('capacity')
-                    ->placeholder('Capacity')
+                    ->placeholder('Number of guests')
                     ->required()
                     ->numeric(),
                 TextInput::make('size')
