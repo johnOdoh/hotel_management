@@ -871,8 +871,8 @@
                                 </div>
                                 <div>
                                     <h4 class="text-xs font-bold uppercase tracking-wider" style="color: #d4a853;">Resort Location</h4>
-                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);">123 Luxury Coastal Blvd, Waterfront</p>
-                                    <p class="text-xs mt-0.5" style="color: var(--hotel-subtext);">Marina Bay District, Oceanfront Vista</p>
+                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);">{{ config('app.address') }}</p>
+                                    {{-- <p class="text-xs mt-0.5" style="color: var(--hotel-subtext);">Marina Bay District, Oceanfront Vista</p> --}}
                                 </div>
                             </div>
 
@@ -883,8 +883,8 @@
                                 </div>
                                 <div>
                                     <h4 class="text-xs font-bold uppercase tracking-wider" style="color: #d4a853;">Telephone Inquiries</h4>
-                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);">+234 811 123 4567 <span class="text-xs font-normal" style="color: var(--hotel-subtext);">(Front Desk)</span></p>
-                                    <p class="text-sm font-medium mt-0.5" style="color: var(--hotel-heading);">+234 705 987 6543 <span class="text-xs font-normal" style="color: var(--hotel-subtext);">(VIP Butler)</span></p>
+                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);"> <a class="hover:underline" href="tel:{{ config('app.phone1') }}" style="color: var(--hotel-heading);">{{ config('app.phone1') }}</a></p>
+                                    <p class="text-sm font-medium mt-0.5" style="color: var(--hotel-heading);"><a class="hover:underline" href="tel:{{ config('app.phone2') }}" style="color: var(--hotel-heading);">{{ config('app.phone2') }}</a></p>
                                 </div>
                             </div>
 
@@ -895,8 +895,7 @@
                                 </div>
                                 <div>
                                     <h4 class="text-xs font-bold uppercase tracking-wider" style="color: #d4a853;">Email Direct</h4>
-                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);">reservations@teescontinental.com</p>
-                                    <p class="text-sm font-medium mt-0.5" style="color: var(--hotel-heading);">concierge@teescontinental.com</p>
+                                    <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);"><a class="hover:underline" href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a></p>
                                 </div>
                             </div>
 
@@ -908,7 +907,7 @@
                                 <div>
                                     <h4 class="text-xs font-bold uppercase tracking-wider" style="color: #d4a853;">Operating Schedule</h4>
                                     <p class="text-sm font-medium mt-1" style="color: var(--hotel-heading);">Front Desk & Concierge: 24/7</p>
-                                    <p class="text-xs mt-0.5" style="color: var(--hotel-subtext);">Check-in: 2:00 PM | Check-out: 11:00 AM</p>
+                                    <p class="text-xs mt-0.5" style="color: var(--hotel-subtext);">Check-in: 12:00 PM | Check-out: 11:00 AM</p>
                                 </div>
                             </div>
                         </div>
@@ -998,7 +997,7 @@
                                         type="text"
                                         id="contact-name"
                                         wire:model="contactName"
-                                        placeholder="e.g. Eleanor Vance"
+                                        placeholder="e.g. John Doe"
                                         class="w-full rounded-xl px-4 py-3.5 text-sm border transition-all duration-300 focus:outline-none focus:ring-2"
                                         style="background-color: var(--hotel-card-subtle); color: var(--hotel-heading); border-color: var(--hotel-border); --tw-ring-color: #d4a853;">
                                     @error('contactName')
@@ -1017,7 +1016,7 @@
                                         type="email"
                                         id="contact-email"
                                         wire:model="contactEmail"
-                                        placeholder="eleanor@example.com"
+                                        placeholder="john@example.com"
                                         class="w-full rounded-xl px-4 py-3.5 text-sm border transition-all duration-300 focus:outline-none focus:ring-2"
                                         style="background-color: var(--hotel-card-subtle); color: var(--hotel-heading); border-color: var(--hotel-border); --tw-ring-color: #d4a853;">
                                     @error('contactEmail')
@@ -1039,7 +1038,7 @@
                                         type="tel"
                                         id="contact-phone"
                                         wire:model="contactPhone"
-                                        placeholder="+1 (555) 000-0000"
+                                        placeholder="+234 812 000 0000"
                                         class="w-full rounded-xl px-4 py-3.5 text-sm border transition-all duration-300 focus:outline-none focus:ring-2"
                                         style="background-color: var(--hotel-card-subtle); color: var(--hotel-heading); border-color: var(--hotel-border); --tw-ring-color: #d4a853;">
                                     @error('contactPhone')
@@ -1049,21 +1048,15 @@
 
                                 <div>
                                     <label for="contact-subject" class="block text-xs font-semibold uppercase tracking-wider mb-2" style="color: var(--hotel-heading);">
-                                        Inquiry Type <span class="text-red-500">*</span>
+                                        Subject <span class="text-red-500">*</span>
                                     </label>
-                                    <select
+                                    <input
+                                        type="tel"
                                         id="contact-subject"
                                         wire:model="contactSubject"
-                                        class="w-full rounded-xl px-4 py-3.5 text-sm border transition-all duration-300 focus:outline-none focus:ring-2 cursor-pointer"
+                                        placeholder="Inquiry / Complaint"
+                                        class="w-full rounded-xl px-4 py-3.5 text-sm border transition-all duration-300 focus:outline-none focus:ring-2"
                                         style="background-color: var(--hotel-card-subtle); color: var(--hotel-heading); border-color: var(--hotel-border); --tw-ring-color: #d4a853;">
-                                        <option value="General Inquiry">General Inquiry</option>
-                                        <option value="Suite Reservation & Booking">Suite Reservation & Booking</option>
-                                        <option value="VIP Penthouse & Butler Service">VIP Penthouse & Butler Service</option>
-                                        <option value="Private Wedding & Celebration">Private Wedding & Celebration</option>
-                                        <option value="Corporate Retreat & Conference">Corporate Retreat & Conference</option>
-                                        <option value="Spa & Wellness Package">Spa & Wellness Package</option>
-                                        <option value="Airport Chauffeur & Logistics">Airport Chauffeur & Logistics</option>
-                                    </select>
                                     @error('contactSubject')
                                         <p class="text-xs text-red-500 mt-1.5">{{ $message }}</p>
                                     @enderror
@@ -1159,15 +1152,18 @@
                     <ul class="space-y-3 text-xs text-white/60">
                         <li class="flex items-center gap-3">
                             <svg class="w-4 h-4 shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-                            <span>123 Luxury Coastal Blvd, Waterfront</span>
+                            <span>{{ config('app.address') }}</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <svg class="w-4 h-4 shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
-                            <span>+234 810 123 4567</span>
+                            <div class="space-y-2">
+                                <p><a class="hover:underline" href="tel:{{ config('app.phone1') }}">{{ config('app.phone1') }}</a></p>
+                                <p><a class="hover:underline" href="tel:{{ config('app.phone2') }}">{{ config('app.phone2') }}</a></p>
+                            </div>
                         </li>
                         <li class="flex items-center gap-3">
                             <svg class="w-4 h-4 shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-                            <span>reservations@teescontinental.com</span>
+                            <span><a class="hover:underline" href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a></span>
                         </li>
                     </ul>
                 </div>
@@ -1177,7 +1173,7 @@
                     <h4 class="text-white font-semibold mb-4 text-xs tracking-wider uppercase">Check-In Info</h4>
                     <p class="text-xs text-white/50 leading-relaxed mb-4">
                         Front Desk & Concierge: Open 24/7<br>
-                        Check-in: 2:00 PM | Check-out: 11:00 AM
+                        Check-in: 12:00 PM | Check-out: 11:00 AM
                     </p>
                     <div class="flex gap-2.5">
                         @foreach(['facebook', 'instagram', 'twitter'] as $social)

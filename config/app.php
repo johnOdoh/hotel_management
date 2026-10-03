@@ -14,6 +14,10 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'email' => env('APP_EMAIL', 'hello@example.com'),
+    'address' => env('APP_ADDRESS', 'No 1, Main Street, Lagos, Nigeria'),
+    'phone1' => env('APP_PHONE1', '+234 123 456 7890'),
+    'phone2' => env('APP_PHONE2', '+234 123 456 7890'),
 
     /*
     |--------------------------------------------------------------------------

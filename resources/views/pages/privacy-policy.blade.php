@@ -194,9 +194,9 @@
                     </p>
                     <div class="p-5 rounded-2xl border text-sm space-y-1.5" style="background: rgba(212,168,83,0.06); border-color: rgba(212,168,83,0.25);">
                         <p><strong>{{ config('app.name') }} Hotel & Suites — Privacy Office</strong></p>
-                        <p class="text-xs" style="color: var(--hotel-subtext);">Address: 123 Luxury Coastal Blvd, Waterfront Suite 100</p>
-                        <p class="text-xs" style="color: var(--hotel-subtext);">Email: <a href="mailto:privacy@grandhorizon.com" class="text-amber-500 hover:underline">privacy@grandhorizon.com</a></p>
-                        <p class="text-xs" style="color: var(--hotel-subtext);">Phone: +1 (555) 123-4567 (Ext: Privacy & Compliance)</p>
+                        <p class="text-xs" style="color: var(--hotel-subtext);">Address: {{ config('app.address') }}</p>
+                        <p class="text-xs" style="color: var(--hotel-subtext);">Email: <a href="mailto:{{ config('app.email') }}" class="text-amber-500 hover:underline">{{ config('app.email') }}</a></p>
+                        <p class="text-xs" style="color: var(--hotel-subtext);">Phone: <a href="tel:{{ config('app.phone1') }}" class="text-amber-500 hover:underline">{{ config('app.phone1') }}</a> (Ext: Privacy & Compliance)</p>
                     </div>
                 </div>
 

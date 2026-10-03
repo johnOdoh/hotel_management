@@ -349,7 +349,8 @@
                             </div>
                             <h4 class="font-semibold text-sm mb-1" style="color: var(--hotel-heading);">Need Help?</h4>
                             <p class="text-xs mb-3" style="color: var(--hotel-subtext);">Our team is available 24/7</p>
-                            <a href="tel:+15551234567" class="text-sm font-semibold hover:underline" style="color: #d4a853;">+1 (555) 123-4567</a>
+                            <a href="tel:{{ config('app.phone1') }}" class="text-sm font-semibold hover:underline" style="color: #d4a853;">{{ config('app.phone1') }}</a>
+                            <a href="tel:{{ config('app.phone2') }}" class="text-sm font-semibold hover:underline" style="color: #d4a853;">{{ config('app.phone2') }}</a>
                         </div>
                     </div>
                 </div>

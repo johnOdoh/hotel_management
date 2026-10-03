@@ -24,7 +24,7 @@ class HotelLanding extends Component
     public string $contactName = '';
     public string $contactEmail = '';
     public string $contactPhone = '';
-    public string $contactSubject = 'General Inquiry';
+    public string $contactSubject = '';
     public string $contactMessage = '';
     public bool $contactSent = false;
     public string $contactSuccessMessage = '';

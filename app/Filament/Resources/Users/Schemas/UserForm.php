@@ -26,9 +26,8 @@ class UserForm
                     ->readOnlyOn('edit')
                     ->required(),
                 Select::make('role')
-                    ->label('Role')
                     ->required()
-                    ->options(UserRole::class),
+                    ->options(UserRole::assignableOptions()),
                 Toggle::make('is_active')
                     ->required()
                     ->inline(false)

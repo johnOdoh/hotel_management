@@ -187,8 +187,8 @@
                     <div class="p-5 rounded-2xl border text-sm space-y-1.5" style="background: rgba(212,168,83,0.06); border-color: rgba(212,168,83,0.25);">
                         <p><strong>{{ config('app.name') }} Hotel & Suites — Guest Relations</strong></p>
                         <p class="text-xs" style="color: var(--hotel-subtext);">Front Desk: Available 24 Hours / 7 Days a Week</p>
-                        <p class="text-xs" style="color: var(--hotel-subtext);">Email: <a href="mailto:support@grandhorizon.com" class="text-amber-500 hover:underline">support@grandhorizon.com</a></p>
-                        <p class="text-xs" style="color: var(--hotel-subtext);">Reservations: +1 (555) 123-4567</p>
+                        <p class="text-xs" style="color: var(--hotel-subtext);">Email: <a href="mailto:{{ config('app.email') }}" class="text-amber-500 hover:underline">{{ config('app.email') }}</a></p>
+                        <p class="text-xs" style="color: var(--hotel-subtext);">Reservations: <a href="tel:{{ config('app.phone1') }}" class="text-amber-500 hover:underline">{{ config('app.phone1') }}</a></p>
                     </div>
                 </div>
 
