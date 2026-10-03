@@ -132,6 +132,7 @@ class WorkAllocationSchedule extends Page
                     ->placeholder('e.g. Front Desk, Housekeeping, Bar, Concierge'),
             ])
             ->action(function (array $data): void {
+                $data['position'] = $this->selectedPosition;
                 Shift::create($data);
 
                 Notification::make()
