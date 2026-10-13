@@ -155,7 +155,6 @@ class HotelCheckout extends Component
             'special_request' => $this->specialRequests,
         ]);
 
-        // Update room availability
         $response = app(PaymentService::class)->initialize($this->email, $this->totalPrice, $booking->id, $this->roomCategory->id);
 
         if (!$response['status']) {
